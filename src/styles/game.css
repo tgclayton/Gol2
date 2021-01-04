@@ -1,6 +1,12 @@
-game-canvas {
-  background-color: ivory;
-  height: 65vh;
-  width: 65vh;
+#game-canvas {
+  background-color: rgb(185, 185, 46);
   border: 2pt solid red;
+  position: relative;
+  width: 90%;
+  height: 0;
+  padding-bottom: 90%;
+}
+
+#canvas-dummy {
+  padding-top: 100%;
 }

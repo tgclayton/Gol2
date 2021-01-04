@@ -14,8 +14,8 @@
 }
 
 .App-header {
-  background-color: #282c34;
-  height: 15vh;
+  background-color: #2e384e;
+  height: 10vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -38,5 +38,24 @@
 }
 
 .app-body {
-  height: 85vh;
+  height: 90vh;
+  display: flex;
 }
+
+.column {
+position: relative;
+}
+
+#left-column {
+width: 25%
+}
+
+#center-column {
+  width: 50%
+}
+
+#right-column {
+  width: 25%
+}
+
+

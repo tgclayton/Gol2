@@ -8,7 +8,13 @@ function App() {
         <h2>Game of Life</h2>
       </header>
       <div className="app-body">
-        <Game></Game>
+        <div id='left-column' className="column">
+        </div>
+        <div id='center-column' className="column">
+          <Game></Game>
+        </div>
+        <div id='right-column' className="column">
+        </div>
       </div>
     </div>
   );
