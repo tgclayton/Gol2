@@ -3,16 +3,14 @@ import Game from './components/Game'
 
 function App() {
   return (
-    <>
-      <div className="App">
-        <header className="App-header">
-          <h2>Game of Life</h2>
-        </header>
-      </div>
+    <div className="App">
+      <header className="App-header">
+        <h2>Game of Life</h2>
+      </header>
       <div className="app-body">
-      <Game></Game>
+        <Game></Game>
       </div>
-    </>
+    </div>
   );
 }
 
