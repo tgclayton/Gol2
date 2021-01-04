@@ -1,4 +1,5 @@
 import './App.css';
+import Game from './components/Game'
 
 function App() {
   return (
@@ -9,7 +10,7 @@ function App() {
         </header>
       </div>
       <div className="app-body">
-
+      <Game></Game>
       </div>
     </>
   );
