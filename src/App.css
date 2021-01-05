@@ -44,6 +44,9 @@
 
 .column {
 position: relative;
+justify-content: center;
+align-items: center;
+display: flex;
 }
 
 #left-column {
@@ -51,7 +54,7 @@ width: 25%
 }
 
 #center-column {
-  width: 50%
+  width: 50%;
 }
 
 #right-column {

@@ -1,6 +1,6 @@
 #game-canvas {
-  background-color: rgb(185, 185, 46);
-  border: 2pt solid red;
+  background-color: rgb(100, 100, 100);
+  border: 4pt solid black;
   position: relative;
   width: 90%;
   height: 0;
