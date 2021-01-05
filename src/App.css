@@ -14,7 +14,7 @@
 }
 
 .App-header {
-  background-color: #2e384e;
+  background-color: #1c2842;
   height: 10vh;
   display: flex;
   flex-direction: column;
@@ -40,7 +40,7 @@
 .app-body {
   height: 90vh;
   display: flex;
-  background-color: ivory;
+  background-color: rgb(146, 146, 128);
 }
 
 .column {

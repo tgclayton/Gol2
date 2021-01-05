@@ -1,11 +1,12 @@
 #canvas-container {
-  width: 95%;
-  padding-bottom: 95%;
-  border: 4pt solid black;
+  width: min(90%, 83vh);
+  /* max-width: 50vh; */
+  padding-bottom: min(90%, 83vh);
+  border: 4pt solid rgb(22, 22, 22);
   position: relative;
   height: 0;
-  border-radius: 2%;
-  background-color: rgb(100, 100, 100);
+  border-radius: 3%;
+  background-color: rgb(134, 134, 134);
 }
 
 #game-canvas {
