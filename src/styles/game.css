@@ -1,10 +1,21 @@
-#game-canvas {
-  background-color: rgb(100, 100, 100);
+#canvas-container {
+  width: 95%;
+  padding-bottom: 95%;
   border: 4pt solid black;
   position: relative;
-  width: 90%;
   height: 0;
-  padding-bottom: 90%;
+  border-radius: 2%;
+  background-color: rgb(100, 100, 100);
+}
+
+#game-canvas {
+  height: 99%;
+  width: 99%;
+  position: absolute;
+  left: .5%;
+  right: .5%;
+  top: .5%;
+  bottom: .5%;
 }
 
 #canvas-dummy {

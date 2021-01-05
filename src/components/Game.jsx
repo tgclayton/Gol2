@@ -5,7 +5,9 @@ export default function Game(props) {
   return (
     <>
       {/* <div id="canvas-dummy"></div> */}
-      <canvas id="game-canvas"></canvas>
+      <div id="canvas-container">
+        <canvas id="game-canvas"></canvas>
+      </div>
     </>
   )
 }
