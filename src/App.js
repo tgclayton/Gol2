@@ -6,9 +6,22 @@ import { canvasDraw } from './functions/canvas.js'
 
 function App() {
   const [size, setSize] = useState(100)
-  const [tileSize, setTileSize] = useState(5)
+  const [tileSize, setTileSize] = useState(500 / size)
   const [field, setField] = useState(createField(size, tileSize))
   const [liveCells, setLiveCells] = useState(newMakeRandomMap(size))
+
+  useEffect(() => {
+    canvasDraw(field, liveCells, tileSize)
+  })
+
+  function changeSize() {
+    const size = document.getElementById('size-change').value
+    const tileSize = 500 / size
+    setLiveCells(newMakeRandomMap(size))
+    setField(createField(size, tileSize))
+    setSize(size)
+    setTileSize(tileSize)
+  }
 
   function canvasTest(callback) {
     const randMap = newMakeRandomMap(size)
@@ -32,6 +45,9 @@ function App() {
         <div id='left-column' className="column">
           <button onClick={() => canvasTest(canvasDraw)}>Canvas Test</button>
           {/* <button onClick={() => checkState()}>Check State</button> */}
+          <br></br>
+          <input id='size-change' type='number' onSubmit ></input>
+          <button onClick={() => changeSize()} >Change field size</button>
         </div>
 
         <div id='center-column' className="column">

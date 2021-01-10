@@ -6,10 +6,7 @@ export const canvasDraw = (field, liveCells, tileSize) => {
     for (let i = 0; i < liveCells.length; i++) {
       const tcrds = field[liveCells[i]].canvasTileCrds
       ctx.fillStyle = '#008000'
-      if (i === 50) {
-        console.log(tcrds)
-      }
-      ctx.fillRect(tcrds.x, tcrds.y -1, tileSize, tileSize)
+      ctx.fillRect(tcrds.x -1, tcrds.y - 1, tileSize, tileSize)
     }
   }
 }
