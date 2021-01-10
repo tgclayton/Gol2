@@ -37,31 +37,35 @@
   }
 }
 
+.column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
 .app-body {
   height: 90vh;
   display: flex;
   background-color: rgb(146, 146, 128);
 }
 
-.column {
-position: relative;
-justify-content: center;
-align-items: center;
-display: flex;
-}
-
 #left-column {
 width: 25%;
-display: flex;
-flex-direction: column;
 }
 
 #center-column {
   width: 50%;
+  min-width: 400px
 }
 
 #right-column {
   width: 25%
 }
 
-
+#test-controls {
+  border: 3pt solid black;
+  padding: 1em ;
+  background-color:gray;
+}
