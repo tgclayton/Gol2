@@ -6,7 +6,7 @@ import { canvasDraw } from './functions/canvas.js'
 
 function App() {
   const [size, setSize] = useState(100)
-  const [tileSize, setTileSize] = useState(3)
+  const [tileSize, setTileSize] = useState(5)
   const [field, setField] = useState(createField(size, tileSize))
   const [liveCells, setLiveCells] = useState(newMakeRandomMap(size))
 
@@ -15,7 +15,6 @@ function App() {
     const res = await setLiveCells(randMap)
     console.log(res)
     callback(field, liveCells, tileSize)
-    //  setTimeout(canvasDraw(field, liveCells, tileSize), 150) 
   }
 
   function checkState() {
@@ -33,7 +32,7 @@ function App() {
       <div className="app-body">
         <div id='left-column' className="column">
           <button onClick={() => canvasTest(canvasDraw)}>Canvas Test</button>
-          <button onClick={() => checkState()}>Check State</button>
+          {/* <button onClick={() => checkState()}>Check State</button> */}
         </div>
 
         <div id='center-column' className="column">
