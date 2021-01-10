@@ -10,10 +10,9 @@ function App() {
   const [field, setField] = useState(createField(size, tileSize))
   const [liveCells, setLiveCells] = useState(newMakeRandomMap(size))
 
-  async function canvasTest(callback) {
-    const randMap = await newMakeRandomMap(size)
-    const res = await setLiveCells(randMap)
-    console.log(res)
+  function canvasTest(callback) {
+    const randMap = newMakeRandomMap(size)
+    setLiveCells(randMap)
     callback(field, liveCells, tileSize)
   }
 
