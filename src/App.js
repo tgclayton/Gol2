@@ -8,51 +8,70 @@ import React, { useState, useEffect } from "react"
 // import { Route, BrowserRouter as Router, Switch, Link } from 'react-router-dom'
 import { createField, newMakeRandomMap } from './functions/game.js'
 import { canvasDraw } from './functions/canvas.js'
-import {} from './functions/app.js'
+import { } from './functions/app.js'
 
 function App() {
   const [canvasSize, setCanvasSize] = useState(500)
-  const [size, setSize] = useState(100)
+  const [fieldSize, setFieldSize] = useState(100)
   const [tileSize, setTileSize] = useState(5)
-  const [field, setField] = useState(createField(size, tileSize))
+  const [field, setField] = useState(createField(fieldSize, tileSize))
   const [liveCells, setLiveCells] = useState([])
-  const [leftPanelDisplay, setleftPanelDisplay] = useState(<TestControls/>)
+  const [leftPanelDisplay, setleftPanelDisplay] = useState(<Instructions />)
+  const [propTrigger, setPropTrigger] = useState(true)
 
   useEffect(() => {
-    canvasDraw(field, liveCells, tileSize)
-  })
+    setPropTrigger(!propTrigger)
+  },[fieldSize])
 
-  function changeSize() {
-    const size = document.getElementById('size-change').value
+  function changeSize(size) {
+    // setleftPanelDisplay(<Instructions/>)
     const tileSize = canvasSize / size
     setLiveCells([])
     setField(createField(size, tileSize))
-    setSize(size)
+    setFieldSize(size)
     setTileSize(tileSize)
+    // setleftPanelDisplay(<Instructions />)
+    // setTimeout(() => {
+    //   setleftPanelDisplay(testControls)
+    // }, 50)
   }
 
   function canvasTest() {
-    const randMap = newMakeRandomMap(size)
-    setLiveCells(randMap)
-    canvasDraw(field, liveCells, tileSize)
+    const randMap = newMakeRandomMap(fieldSize)
+    setLiveCells({ ...randMap })
+    canvasDraw(field, randMap, tileSize)
   }
 
-  function changeCanvasSize () {
-    const size = document.getElementById('canvasSize-change').value
+  function changeCanvasSize() {
+    setTimeout(null, 50)
+    const size = Number(document.getElementById('canvasSize-change').value)
     setCanvasSize(size)
   }
 
-  const testControls = 
-  <TestControls
-    canvasTest={canvasTest}
-    changeSize={changeSize}
-    changeCanvasSize={changeCanvasSize}
-    size = {size}
-    canvasSize = {canvasSize}
-  />
+  function checkState() {
+    console.log("fieldSize:", fieldSize)
+    console.log("tileSize:", tileSize)
+    console.log("canvasSize:", canvasSize)
+    console.log("propTrigger:", propTrigger)
+  }
 
-  const controls = 
-  <Controls />
+  function checkComponent() {
+    console.log(testControls.props)
+  }
+
+  const testControls =
+    <TestControls
+      canvasTest = {canvasTest}
+      fieldSize = {fieldSize}
+      changeSize = {changeSize}
+      changeCanvasSize = {changeCanvasSize}
+      size = {fieldSize}
+      canvasSize = {canvasSize}
+      propTrigger = {propTrigger}
+    />
+
+  const controls =
+    <Controls />
 
   return (
     <div className="App">
@@ -61,16 +80,19 @@ function App() {
       </header>
       <div className="app-body">
         <div id='left-column' className="column">
-          <div id = "left-panel-nav">
-            <button onClick={() => setleftPanelDisplay(testControls)}>Test Controls</button>
+          <div id="left-panel-nav">
+            {testControls}
+            {/* <button onClick={() => setleftPanelDisplay(testControls)}>Test Controls</button>
             <button onClick={() => setleftPanelDisplay(controls)}>Controls</button>
-            <button onClick={() => setleftPanelDisplay(<Instructions/>)}>Instructions</button>
+            <button onClick={() => setleftPanelDisplay(<Instructions />)}>Instructions</button> */}
           </div>
           {leftPanelDisplay}
+          <button  onClick = {() => checkState()}>Check State</button>
+          <button  onClick = {() => checkComponent()}>Check Component</button>
         </div>
 
         <div id='center-column' className="column">
-          <Game canvasSize = {canvasSize}/>
+          <Game canvasSize={canvasSize} />
         </div>
 
         <div id='right-column' className="column">
