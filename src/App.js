@@ -11,6 +11,7 @@ import { canvasDraw } from './functions/canvas.js'
 import {} from './functions/app.js'
 
 function App() {
+  const [canvasSize, setCanvasSize] = useState(500)
   const [size, setSize] = useState(100)
   const [tileSize, setTileSize] = useState(5)
   const [field, setField] = useState(createField(size, tileSize))
@@ -23,7 +24,7 @@ function App() {
 
   function changeSize() {
     const size = document.getElementById('size-change').value
-    const tileSize = 500 / size
+    const tileSize = canvasSize / size
     setLiveCells([])
     setField(createField(size, tileSize))
     setSize(size)
@@ -36,6 +37,23 @@ function App() {
     canvasDraw(field, liveCells, tileSize)
   }
 
+  function changeCanvasSize () {
+    const size = document.getElementById('canvasSize-change').value
+    setCanvasSize(size)
+  }
+
+  const testControls = 
+  <TestControls
+    canvasTest={canvasTest}
+    changeSize={changeSize}
+    changeCanvasSize={changeCanvasSize}
+    size = {size}
+    canvasSize = {canvasSize}
+  />
+
+  const controls = 
+  <Controls />
+
   return (
     <div className="App">
       <header className="App-header">
@@ -44,15 +62,15 @@ function App() {
       <div className="app-body">
         <div id='left-column' className="column">
           <div id = "left-panel-nav">
-            <button onClick={() => setleftPanelDisplay(<TestControls canvasTest={canvasTest} changeSize={changeSize} size = {size}/>)}>Test Controls</button>
-            <button onClick={() => setleftPanelDisplay(<Controls/>)}>Controls</button>
+            <button onClick={() => setleftPanelDisplay(testControls)}>Test Controls</button>
+            <button onClick={() => setleftPanelDisplay(controls)}>Controls</button>
             <button onClick={() => setleftPanelDisplay(<Instructions/>)}>Instructions</button>
           </div>
           {leftPanelDisplay}
         </div>
 
         <div id='center-column' className="column">
-          <Game />
+          <Game canvasSize = {canvasSize}/>
         </div>
 
         <div id='right-column' className="column">

@@ -10,7 +10,7 @@ export default function Game(props) {
   // height={colWidth} width={colWidth}
   return (
     <div id="canvas-container">
-      <canvas id="game-canvas"  height ="500" width = "500"></canvas>
+      <canvas id="game-canvas"  height = {props.canvasSize} width = {props.canvasSize}></canvas>
     </div>
   )
 }

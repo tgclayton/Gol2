@@ -6,7 +6,9 @@ export default function TestControls(props) {
       <input id='size-change' type='number' defaultValue = {props.size} ></input>
       <button onClick={() => props.changeSize()} >Change field size</button>
       <br></br>
-      {/* <button onClick = {() => setShowTestControls(false)}>Hide Panel</button> */}
+      <input id='canvasSize-change' type='number' defaultValue = {props.canvasSize} ></input>
+      <button onClick={() => props.changeCanvasSize()} >Change canvas size</button>
+      <br></br>
     </div>
   )
 }
