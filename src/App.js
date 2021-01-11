@@ -35,7 +35,7 @@ function App() {
 
   let testControlPanel = null
   if (showTestControls) {
-    testControlPanel = <TestControls canvasTest={canvasTest} changeSize={changeSize} />
+    testControlPanel = <TestControls canvasTest={canvasTest} changeSize={changeSize} size = {size}/>
   }
 
   return (
