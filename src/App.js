@@ -1,8 +1,11 @@
 import './App.css';
 import Game from './components/Game'
 import TestControls from './components/TestControls'
+import Controls from './components/Controls'
+import Instructions from './components/Instructions'
+
 import React, { useState, useEffect } from "react"
-import { Route, BrowserRouter as Router, Switch, Link } from 'react-router-dom'
+// import { Route, BrowserRouter as Router, Switch, Link } from 'react-router-dom'
 import { createField, newMakeRandomMap } from './functions/game.js'
 import { canvasDraw } from './functions/canvas.js'
 import {} from './functions/app.js'
@@ -42,8 +45,8 @@ function App() {
         <div id='left-column' className="column">
           <div id = "left-panel-nav">
             <button onClick={() => setleftPanelDisplay(<TestControls canvasTest={canvasTest} changeSize={changeSize} size = {size}/>)}>Test Controls</button>
-            <button onClick={() => setleftPanelDisplay('Controls')}>Controls</button>
-            <button onClick={() => setleftPanelDisplay('Instructions')}>instructions</button>
+            <button onClick={() => setleftPanelDisplay(<Controls/>)}>Controls</button>
+            <button onClick={() => setleftPanelDisplay(<Instructions/>)}>Instructions</button>
           </div>
           {leftPanelDisplay}
         </div>
