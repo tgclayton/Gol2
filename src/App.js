@@ -33,11 +33,6 @@ function App() {
     canvasDraw(field, liveCells, tileSize)
   }
 
-  // let leftColumnDisplay = null
-  // if (leftPanelDisplay === 'test-controls') {
-  //   leftColumnDisplay = <TestControls canvasTest={canvasTest} changeSize={changeSize} size = {size}/>
-  // }
-
   return (
     <div className="App">
       <header className="App-header">
@@ -46,18 +41,11 @@ function App() {
       <div className="app-body">
         <div id='left-column' className="column">
           <div id = "left-panel-nav">
-            <button onClick={() => setleftPanelDisplay(<TestControls/>)}>Test Controls</button>
+            <button onClick={() => setleftPanelDisplay(<TestControls canvasTest={canvasTest} changeSize={changeSize} size = {size}/>)}>Test Controls</button>
             <button onClick={() => setleftPanelDisplay('Controls')}>Controls</button>
             <button onClick={() => setleftPanelDisplay('Instructions')}>instructions</button>
           </div>
           {leftPanelDisplay}
-          {/* <div id="test-controls" className="column">
-            <button onClick={() => canvasTest(canvasDraw)}>Canvas Test</button>
-            <br></br>
-            <input id='size-change' type='number' onSubmit ></input>
-            <button onClick={() => changeSize()} >Change field size</button>
-            <br></br>
-          </div> */}
         </div>
 
         <div id='center-column' className="column">
