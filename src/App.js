@@ -12,7 +12,7 @@ function App() {
   const [tileSize, setTileSize] = useState(5)
   const [field, setField] = useState(createField(size, tileSize))
   const [liveCells, setLiveCells] = useState([])
-  const [showTestControls, setShowTestControls] = useState(false)
+  const [leftPanelDisplay, setleftPanelDisplay] = useState(<TestControls/>)
 
   useEffect(() => {
     canvasDraw(field, liveCells, tileSize)
@@ -33,10 +33,10 @@ function App() {
     canvasDraw(field, liveCells, tileSize)
   }
 
-  let testControlPanel = null
-  if (showTestControls) {
-    testControlPanel = <TestControls canvasTest={canvasTest} changeSize={changeSize} size = {size}/>
-  }
+  // let leftColumnDisplay = null
+  // if (leftPanelDisplay === 'test-controls') {
+  //   leftColumnDisplay = <TestControls canvasTest={canvasTest} changeSize={changeSize} size = {size}/>
+  // }
 
   return (
     <div className="App">
@@ -45,8 +45,12 @@ function App() {
       </header>
       <div className="app-body">
         <div id='left-column' className="column">
-          <button onClick={() => setShowTestControls(!showTestControls)}>Toggle Test Controls</button>
-          {testControlPanel}
+          <div id = "left-panel-nav">
+            <button onClick={() => setleftPanelDisplay(<TestControls/>)}>Test Controls</button>
+            <button onClick={() => setleftPanelDisplay('Controls')}>Controls</button>
+            <button onClick={() => setleftPanelDisplay('Instructions')}>instructions</button>
+          </div>
+          {leftPanelDisplay}
           {/* <div id="test-controls" className="column">
             <button onClick={() => canvasTest(canvasDraw)}>Canvas Test</button>
             <br></br>
