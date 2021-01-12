@@ -5,7 +5,7 @@ export default function TestControls(props) {
 
   return (
     <div id="test-controls" className="column control-panel">
-      <button onClick={() => props.canvasTest()}>Canvas Test</button>
+      <button onClick={() => props.makeRandomStart()}>Canvas Test</button>
       <br></br>
       <input id='size-change' type='number' defaultValue = {props.size} max = {150}></input>
       <button onClick={() => props.changeSize(Number(document.getElementById('size-change').value))} >Change field size</button>
@@ -17,7 +17,7 @@ export default function TestControls(props) {
       <br></br>
       <button onClick={() => props.checkState()}>Check State</button>
       <br></br>
-      <button onClick={() => console.log(typeof props.liveCells)}>Check LiveCells</button>
+      <button onClick={() => console.log(props.liveCells)}>Check LiveCells</button>
     </div>
   )
 }
