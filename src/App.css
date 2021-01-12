@@ -51,6 +51,20 @@
   background-color: rgb(146, 146, 128);
 }
 
+.nav-button {
+  color: black;
+  padding: .5em;
+  border: 2pt solid black;
+  margin: 2pt;
+  text-decoration: none;
+  background: gray;
+}
+
+.selected-nav{
+  background: rgb(58, 58, 58);
+  color: ivory;
+}
+
 #left-column {
 width: 25%;
 }

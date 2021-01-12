@@ -20,8 +20,10 @@ function App() {
   const [propTrigger, setPropTrigger] = useState(true)
 
   useEffect(() => {
-    setPropTrigger(!propTrigger)
-  }, [fieldSize])
+    let buttons = Array.from(document.getElementsByClassName('nav-button'))
+    buttons.forEach(element => element.classList.remove('selected-nav'))
+    document.getElementById(`nav-button-${leftPanelDisplay}`).classList.add('selected-nav')
+  }, )
 
   function changeSize(size) {
     // setleftPanelDisplay(<Instructions/>)
@@ -64,12 +66,12 @@ function App() {
         <div className="app-body">
           <div id='left-column' className="column">
             <div id="left-panel-nav">
-              <Link to = '/controls' id ='' className ='' onClick = {() => setleftPanelDisplay('controls')}>Controls</Link>
-              <Link to = '/' id ='' className ='' onClick = {() => setleftPanelDisplay('instructions')}>Instructions</Link>
-              <Link to = '/test-controls' id ='' className ='' onClick = {() => setleftPanelDisplay('test-controls')}>Test Controls</Link>
+              <Link to = '/controls' id ='nav-button-controls' className ='nav-button' onClick = {() => setleftPanelDisplay('controls')}>Controls</Link>
+              <Link to = '/instructions' id ='nav-button-instructions' className ='nav-button' onClick = {() => setleftPanelDisplay('instructions')}>Instructions</Link>
+              <Link to = '/test-controls' id ='nav-button-test-controls' className ='nav-button' onClick = {() => setleftPanelDisplay('test-controls')}>Test Controls</Link>
             </div>
             <Switch>
-              <Route exact path="/">
+              <Route path="/instructions">
                 <Instructions />
               </Route>
               <Route path="/test-controls">
