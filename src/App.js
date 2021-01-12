@@ -5,7 +5,7 @@ import Controls from './components/Controls'
 import Instructions from './components/Instructions'
 
 import React, { useState, useEffect } from "react"
-import { Route, BrowserRouter as Router, Switch, Link } from 'react-router-dom'
+import { Route, BrowserRouter as  Router, Switch, Link, Redirect } from 'react-router-dom'
 import { createField, newMakeRandomMap } from './functions/game.js'
 import { canvasDraw } from './functions/canvas.js'
 import { } from './functions/app.js'
@@ -55,6 +55,7 @@ function App() {
 
   return (
     <Router>
+      <Redirect to ={leftPanelDisplay}></Redirect>
       <div className="App">
         <header className="App-header">
           <h2>Game of Life</h2>
