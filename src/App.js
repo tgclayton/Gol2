@@ -18,12 +18,13 @@ function App() {
   const [field, setField] = useState(createField(fieldSize, tileSize))
   const [liveCells, setLiveCells] = useState([])
   const [leftPanelDisplay, setleftPanelDisplay] = useState('test-controls')
-  const [rightPanelDisplay, setRIghtPanelDisplay] = useState('stats')
+  const [rightPanelDisplay, setRightPanelDisplay] = useState('stats')
   const [generation, setGeneration] = useState(0)
 
 
   //Controls highlighting of selected nav button
   useEffect(() => {
+    console.log(`left: ${leftPanelDisplay} right: ${rightPanelDisplay}`)
     let buttons = Array.from(document.getElementsByClassName('nav-button'))
     buttons.forEach(element => element.classList.remove('selected-nav'))
     document.getElementById(`nav-button-${leftPanelDisplay}`).classList.add('selected-nav')
@@ -64,7 +65,7 @@ function App() {
   return (
     <Router>
       <Redirect to={`/`}></Redirect>
-      <Redirect to={`${leftPanelDisplay}/${rightPanelDisplay}`}></Redirect>
+      {/* <Redirect to={`${leftPanelDisplay}/${rightPanelDisplay}`}></Redirect> */}
       <div className="App">
         <header className="App-header">
           <h2>Game of Life</h2>
@@ -72,9 +73,9 @@ function App() {
         <div className="app-body">
           <div id='left-column' className="column">
             <div id="left-panel-nav" className="panel-nav">
-              <Link to='/controls' id='nav-button-controls' className='nav-button' onClick={() => setleftPanelDisplay('controls')}>Controls</Link>
-              <Link to='/instructions' id='nav-button-instructions' className='nav-button' onClick={() => setleftPanelDisplay('instructions')}>Instructions</Link>
-              <Link to='/test-controls' id='nav-button-test-controls' className='nav-button' onClick={() => setleftPanelDisplay('test-controls')}>Test Controls</Link>
+              <Link to={`/controls/${rightPanelDisplay}`} replace id='nav-button-controls' className='nav-button' onClick={() => setleftPanelDisplay('controls')}>Controls</Link>
+              <Link to={`/instructions/${rightPanelDisplay}`} replace id='nav-button-instructions' className='nav-button' onClick={() => setleftPanelDisplay('instructions')}>Instructions</Link>
+              <Link to={`/test-controls/${rightPanelDisplay}`} replace id='nav-button-test-controls' className='nav-button' onClick={() => setleftPanelDisplay('test-controls')}>Test Controls</Link>
             </div>
             <Switch>
               <Route path="/instructions">
@@ -107,12 +108,12 @@ function App() {
 
           <div id='right-column' className="column">
             <div id="right-panel-nav" className="panel-nav">
-              <Link to='/saves' id='nav-button-saves' className='nav-button' onClick={() => setRIghtPanelDisplay('saves')}>Saves</Link>
-              <Link to='/stats' id='nav-button-stats' className='nav-button' onClick={() => setRIghtPanelDisplay('stats')}>Stats</Link>
+              <Link to={`/${leftPanelDisplay}/saves`} replace id='nav-button-saves' className='nav-button' onClick={() => setRightPanelDisplay('saves')}>Saves</Link>
+              <Link to={`/${leftPanelDisplay}/stats`} replace id='nav-button-stats' className='nav-button' onClick={() => setRightPanelDisplay('stats')}>Stats</Link>
             </div>
             {/* <Stats/> */}
             <Switch>
-              <Route path={`/${leftPanelDisplay}/saves`}>
+              <Route  path={`/${leftPanelDisplay}/saves`}>
               </Route>
               <Route path={`/${leftPanelDisplay}/stats`}>
                 <Stats
