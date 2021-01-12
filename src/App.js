@@ -40,12 +40,11 @@ function App() {
 
   function canvasTest() {
     const randMap = newMakeRandomMap(fieldSize)
-    setLiveCells({ ...randMap })
+    setLiveCells(randMap)
     canvasDraw(field, randMap, tileSize)
   }
 
   function changeCanvasSize() {
-    setTimeout(null, 50)
     const size = Number(document.getElementById('canvasSize-change').value)
     setCanvasSize(size)
   }
