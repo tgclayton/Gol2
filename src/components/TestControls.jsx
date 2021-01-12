@@ -4,10 +4,10 @@ export default function TestControls(props) {
   }
 
   return (
-    <div id="test-controls" className="column">
+    <div id="test-controls" className="column control-panel">
       <button onClick={() => props.canvasTest()}>Canvas Test</button>
       <br></br>
-      <input id='size-change' type='number' defaultValue = {props.size} ></input>
+      <input id='size-change' type='number' defaultValue = {props.size} max = {150}></input>
       <button onClick={() => props.changeSize(Number(document.getElementById('size-change').value))} >Change field size</button>
       <br></br>
       <input id='canvasSize-change' type='number' defaultValue = {props.canvasSize} ></input>

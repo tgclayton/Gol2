@@ -23,19 +23,15 @@ function App() {
     let buttons = Array.from(document.getElementsByClassName('nav-button'))
     buttons.forEach(element => element.classList.remove('selected-nav'))
     document.getElementById(`nav-button-${leftPanelDisplay}`).classList.add('selected-nav')
-  }, )
+  }, [leftPanelDisplay])
 
   function changeSize(size) {
-    // setleftPanelDisplay(<Instructions/>)
     const tileSize = canvasSize / size
     setLiveCells([])
     setField(createField(size, tileSize))
     setFieldSize(size)
     setTileSize(tileSize)
-    // setleftPanelDisplay(<Instructions />)
-    // setTimeout(() => {
-    //   setleftPanelDisplay(testControls)
-    // }, 50)
+    canvasDraw(field, [], tileSize)
   }
 
   function canvasTest() {

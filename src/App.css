@@ -78,7 +78,7 @@ width: 25%;
   width: 25%
 }
 
-#test-controls {
+.control-panel{
   border: 3pt solid black;
   padding: 1em ;
   background-color:gray;
