@@ -57,7 +57,7 @@
   border: 2pt solid black;
   margin: 2pt;
   text-decoration: none;
-  background: gray;
+  background: rgb(141, 139, 139);
 }
 
 .selected-nav{
@@ -81,7 +81,8 @@ width: 25%;
 .control-panel{
   border: 3pt solid black;
   padding: 1em ;
-  background-color:gray;
+  background-color:rgb(160, 158, 158);
+  /* color: white; */
 }
 
 .panel-nav {

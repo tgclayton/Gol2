@@ -65,7 +65,7 @@ function App() {
   return (
     <Router>
       <Redirect to={`/`}></Redirect>
-      {/* <Redirect to={`${leftPanelDisplay}/${rightPanelDisplay}`}></Redirect> */}
+      <Redirect to={`/${leftPanelDisplay}/${rightPanelDisplay}`}></Redirect>
       <div className="App">
         <header className="App-header">
           <h2>Game of Life</h2>
