@@ -84,7 +84,7 @@ width: 25%;
   background-color:gray;
 }
 
-#left-panel-nav {
+.panel-nav {
   position: absolute;
   top: 0;
   margin-top: 3em;

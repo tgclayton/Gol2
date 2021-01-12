@@ -3,6 +3,7 @@ import Game from './components/Game'
 import TestControls from './components/TestControls'
 import Controls from './components/Controls'
 import Instructions from './components/Instructions'
+import Stats from './components/Stats'
 
 import React, { useState, useEffect } from "react"
 import { Route, BrowserRouter as  Router, Switch, Link, Redirect } from 'react-router-dom'
@@ -16,14 +17,17 @@ function App() {
   const [tileSize, setTileSize] = useState(5)
   const [field, setField] = useState(createField(fieldSize, tileSize))
   const [liveCells, setLiveCells] = useState([])
-  const [leftPanelDisplay, setleftPanelDisplay] = useState('instructions')
-  const [propTrigger, setPropTrigger] = useState(true)
+  const [leftPanelDisplay, setleftPanelDisplay] = useState('test-controls')
+  const [rightPanelDisplay, setRIghtPanelDisplay] = useState('stats')
 
+
+  //Controls highlighting of selected nav button
   useEffect(() => {
     let buttons = Array.from(document.getElementsByClassName('nav-button'))
     buttons.forEach(element => element.classList.remove('selected-nav'))
     document.getElementById(`nav-button-${leftPanelDisplay}`).classList.add('selected-nav')
-  }, [leftPanelDisplay])
+    document.getElementById(`nav-button-${rightPanelDisplay}`).classList.add('selected-nav')
+  }, [leftPanelDisplay, rightPanelDisplay])
 
   function changeSize(size) {
     const tileSize = canvasSize / size
@@ -50,19 +54,18 @@ function App() {
     console.log("fieldSize:", fieldSize)
     console.log("tileSize:", tileSize)
     console.log("canvasSize:", canvasSize)
-    console.log("propTrigger:", propTrigger)
   }
 
   return (
     <Router>
-      <Redirect to ={leftPanelDisplay}></Redirect>
+      <Redirect to ={`${leftPanelDisplay}/${rightPanelDisplay}`}></Redirect>
       <div className="App">
         <header className="App-header">
           <h2>Game of Life</h2>
         </header>
         <div className="app-body">
           <div id='left-column' className="column">
-            <div id="left-panel-nav">
+            <div id="left-panel-nav" className = "panel-nav">
               <Link to = '/controls' id ='nav-button-controls' className ='nav-button' onClick = {() => setleftPanelDisplay('controls')}>Controls</Link>
               <Link to = '/instructions' id ='nav-button-instructions' className ='nav-button' onClick = {() => setleftPanelDisplay('instructions')}>Instructions</Link>
               <Link to = '/test-controls' id ='nav-button-test-controls' className ='nav-button' onClick = {() => setleftPanelDisplay('test-controls')}>Test Controls</Link>
@@ -73,14 +76,14 @@ function App() {
               </Route>
               <Route path="/test-controls">
                 <TestControls
-                  canvasTest={canvasTest}
-                  fieldSize={fieldSize}
-                  changeSize={changeSize}
-                  changeCanvasSize={changeCanvasSize}
-                  size={fieldSize}
-                  canvasSize={canvasSize}
-                  propTrigger={propTrigger}
-                  checkState= {checkState}
+                  canvasTest = {canvasTest}
+                  fieldSize = {fieldSize}
+                  changeSize = {changeSize}
+                  changeCanvasSize = {changeCanvasSize}
+                  size = {fieldSize}
+                  canvasSize ={canvasSize}
+                  checkState = {checkState}
+                  liveCells = {liveCells}
                 />
               </Route>
               <Route path="/controls">
@@ -94,7 +97,21 @@ function App() {
           </div>
 
           <div id='right-column' className="column">
-
+          <div id="right-panel-nav" className = "panel-nav">
+              <Link to = '/saves' id ='nav-button-saves' className ='nav-button' onClick = {() => setRIghtPanelDisplay('saves')}>Saves</Link>
+              <Link to = '/stats' id ='nav-button-stats' className ='nav-button' onClick = {() => setRIghtPanelDisplay('stats')}>Stats</Link>
+            </div>
+            {/* <Stats/> */}
+            <Switch>
+              <Route path = {`/${leftPanelDisplay}/saves`}>
+              </Route>
+              <Route path = {`/${leftPanelDisplay}/stats`}>
+                <Stats 
+                liveCells = {liveCells.length}
+                size = {fieldSize}
+                />
+                </Route>
+            </Switch>
           </div>
 
         </div>

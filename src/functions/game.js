@@ -45,6 +45,7 @@ export const newMakeRandomMap = (size) => {
       liveCells.push(i)
     }
   }
+  console.log('livecells:', liveCells)
   return liveCells
 }
 

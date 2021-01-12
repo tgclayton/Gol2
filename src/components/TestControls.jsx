@@ -16,6 +16,8 @@ export default function TestControls(props) {
       <button onClick={() => checkProps()} >Check props</button>
       <br></br>
       <button onClick={() => props.checkState()}>Check State</button>
+      <br></br>
+      <button onClick={() => console.log(typeof props.liveCells)}>Check LiveCells</button>
     </div>
   )
 }
