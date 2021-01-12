@@ -5,7 +5,7 @@ import Controls from './components/Controls'
 import Instructions from './components/Instructions'
 
 import React, { useState, useEffect } from "react"
-// import { Route, BrowserRouter as Router, Switch, Link } from 'react-router-dom'
+import { Route, BrowserRouter as Router, Switch, Link } from 'react-router-dom'
 import { createField, newMakeRandomMap } from './functions/game.js'
 import { canvasDraw } from './functions/canvas.js'
 import { } from './functions/app.js'
@@ -16,12 +16,12 @@ function App() {
   const [tileSize, setTileSize] = useState(5)
   const [field, setField] = useState(createField(fieldSize, tileSize))
   const [liveCells, setLiveCells] = useState([])
-  const [leftPanelDisplay, setleftPanelDisplay] = useState(<Instructions />)
+  const [leftPanelDisplay, setleftPanelDisplay] = useState('instructions')
   const [propTrigger, setPropTrigger] = useState(true)
 
   useEffect(() => {
     setPropTrigger(!propTrigger)
-  },[fieldSize])
+  }, [fieldSize])
 
   function changeSize(size) {
     // setleftPanelDisplay(<Instructions/>)
@@ -55,52 +55,52 @@ function App() {
     console.log("propTrigger:", propTrigger)
   }
 
-  function checkComponent() {
-    console.log(testControls.props)
-  }
-
-  const testControls =
-    <TestControls
-      canvasTest = {canvasTest}
-      fieldSize = {fieldSize}
-      changeSize = {changeSize}
-      changeCanvasSize = {changeCanvasSize}
-      size = {fieldSize}
-      canvasSize = {canvasSize}
-      propTrigger = {propTrigger}
-    />
-
-  const controls =
-    <Controls />
-
   return (
-    <div className="App">
-      <header className="App-header">
-        <h2>Game of Life</h2>
-      </header>
-      <div className="app-body">
-        <div id='left-column' className="column">
-          <div id="left-panel-nav">
-            {testControls}
-            {/* <button onClick={() => setleftPanelDisplay(testControls)}>Test Controls</button>
-            <button onClick={() => setleftPanelDisplay(controls)}>Controls</button>
-            <button onClick={() => setleftPanelDisplay(<Instructions />)}>Instructions</button> */}
+    <Router>
+      <div className="App">
+        <header className="App-header">
+          <h2>Game of Life</h2>
+        </header>
+        <div className="app-body">
+          <div id='left-column' className="column">
+            <div id="left-panel-nav">
+              <Link to = '/controls' id ='' className ='' onClick = {() => setleftPanelDisplay('controls')}>Controls</Link>
+              <Link to = '/' id ='' className ='' onClick = {() => setleftPanelDisplay('instructions')}>Instructions</Link>
+              <Link to = '/test-controls' id ='' className ='' onClick = {() => setleftPanelDisplay('test-controls')}>Test Controls</Link>
+            </div>
+            <Switch>
+              <Route exact path="/">
+                <Instructions />
+              </Route>
+              <Route path="/test-controls">
+                <TestControls
+                  canvasTest={canvasTest}
+                  fieldSize={fieldSize}
+                  changeSize={changeSize}
+                  changeCanvasSize={changeCanvasSize}
+                  size={fieldSize}
+                  canvasSize={canvasSize}
+                  propTrigger={propTrigger}
+                  checkState= {checkState}
+                />
+              </Route>
+              <Route path="/controls">
+                <Controls />
+              </Route>
+            </Switch>
           </div>
-          {leftPanelDisplay}
-          <button  onClick = {() => checkState()}>Check State</button>
-          <button  onClick = {() => checkComponent()}>Check Component</button>
-        </div>
 
-        <div id='center-column' className="column">
-          <Game canvasSize={canvasSize} />
-        </div>
+          <div id='center-column' className="column">
+            <Game canvasSize={canvasSize} />
+          </div>
 
-        <div id='right-column' className="column">
+          <div id='right-column' className="column">
+
+          </div>
 
         </div>
-
       </div>
-    </div>
+    </Router>
   );
 }
 
