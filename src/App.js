@@ -21,9 +21,11 @@ function App() {
   const [leftPanelDisplay, setleftPanelDisplay] = useState('controls')
   const [rightPanelDisplay, setRightPanelDisplay] = useState('info')
   const [generation, setGeneration] = useState(0) //current generation displayed
-  const [speed, setActiveSpeed] = useState(30) //speed at which new generations are created when game is running
+  const [speed, setActiveSpeed] = useState(300) //speed at which new generations are created when game is running
   const [game, setGame] = useState(null) //holds the interval when game is running
- 
+  
+  let workLiveCells = null
+  let workGen = null
 
   //Controls highlighting of selected nav button
   useEffect(() => {
@@ -34,9 +36,9 @@ function App() {
     document.getElementById(`nav-button-${rightPanelDisplay}`).classList.add('selected-nav')
   }, [leftPanelDisplay, rightPanelDisplay])
 
-  useEffect(() => {
-    canvasDraw(field, liveCells, tileSize)
-  })
+  // useEffect(() => {
+  //   canvasDraw(field, liveCells, tileSize)
+  // })
 
   function changeSize(size) {
     const tileSize = canvasSize / size
@@ -47,12 +49,14 @@ function App() {
   }
 
   function clearGame() {
+    pauseGame()
     setLiveCells([])
     setGeneration(0)
     canvasDraw(field, [], tileSize)
   }
 
   function makeRandomStart() {
+    clearGame()
     const randMap = newMakeRandomMap(boardSize)
     setLiveCells(randMap)
     canvasDraw(field, randMap, tileSize)
@@ -68,6 +72,11 @@ function App() {
     setActiveSpeed(speed)
   }
 
+  function pauseGame() {
+    clearInterval(game)
+    setGame(null)
+  }
+
   function checkState() {
     console.log("boardSize:", boardSize)
     console.log("tileSize:", tileSize)
@@ -80,12 +89,33 @@ function App() {
     setField(createField(boardSize, tileSize, newWrap))
   }
 
- function nextGen () {
+ function nextGen () { //generates next generation when game is not freely running
+  // console.log('nextGen occurred')
   const nextGen = makeNextGen(liveCells, boardSize, field, wrap)
   setLiveCells(nextGen)
+  const newGen = generation + 1
+  setGeneration(newGen)
   canvasDraw(field, liveCells, tileSize)
   }
 
+  function runningNextGen() { //generates next generation while game is running freely
+    const nextGen = makeNextGen(workLiveCells, boardSize, field, wrap)
+    workLiveCells = nextGen
+    canvasDraw(field, nextGen, tileSize)
+  }
+
+  function runGame (singleGen) {
+    // const runCheck = wasRunning === undefined ? !this.state.gameRunning : wasRunning
+    if (!game) {
+      if (singleGen) {
+        nextGen()
+      } else {
+          workLiveCells = [...liveCells]
+          setGame(setInterval(() => runningNextGen(), speed))
+        }
+      }
+    }
+  
   return (
     <Router>
       <Redirect to={`/`}></Redirect>
@@ -126,14 +156,15 @@ function App() {
                   wrap={{wrap, toggleWrap}}
                   speed={speed}
                   changeSpeed={changeSpeed}
-                  nextGen={nextGen}
+                  runGame={runGame}
+                  pauseGame={pauseGame}
                 />
               </Route>
             </Switch>
           </div>
 
           <div id='center-column' className="column">
-            <Game canvasSize={canvasSize} />
+            <Game canvasSize={canvasSize} liveCells={liveCells} size={boardSize}/>
           </div>
 
           <div id='right-column' className="column">

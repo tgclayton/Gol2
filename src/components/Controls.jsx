@@ -40,7 +40,9 @@ export default function Controls(props) {
         <button onClick={() => props.makeRandomStart()} >Random Start</button>
         <button onClick={() => props.clearGame()} >Clear Game</button>
         <br />
-        <button onClick={() => props.nextGen()} >Next Generation</button>
+        <button onClick={() => props.runGame(true)} >Next Generation</button>
+        <button onClick={() => props.runGame()} >Run Game</button>
+        <button onClick ={() => props.pauseGame()}>Pause Game</button>
         <br /><br />
         <input id='size-change' type='number' defaultValue={props.boardSize} max={150}></input>
         <br></br>

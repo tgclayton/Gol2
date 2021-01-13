@@ -1,4 +1,5 @@
 export const canvasDraw = (field, liveCells, tileSize) => {
+  // console.log('entered canvasDraw')
   // console.log('field:',field)
   // console.log('livecells:', liveCells)
   // console.log('tileSize:',tileSize)
