@@ -1,5 +1,5 @@
-#wrap-indicator {
-
+.no-wrap-canvas {
+  border-color: rgb(59, 1, 1) !important;
 }
 
 .indicator-on {

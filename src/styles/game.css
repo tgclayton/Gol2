@@ -1,12 +1,12 @@
 #canvas-container {
-  width: min(90%, 83vh);
+  width: min(91%, 83vh);
   /* max-width: 50vh; */
-  padding-bottom: min(90%, 85vh);
-  border: 4pt solid rgb(68, 68, 68);
+  padding-bottom: min(91%, 85vh);
+  border:5pt solid rgb(1, 49, 1);
   position: relative;
   height: 0;
   border-radius: 2%;
-  background-color: rgb(68, 68, 68);
+  background-color: rgb(31, 30, 30);
 }
 
 .canvas {

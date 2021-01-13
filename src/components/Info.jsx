@@ -5,10 +5,13 @@ export default function Info (props) {
 const wrap = props.wrap? "On": "Off"
 useEffect(()=> {
   const span = document.getElementById('wrap-indicator')
+  const canvas = document.getElementById('canvas-container')
+  canvas.className = ''
   span.className = ''
   if (props.wrap) {
     span.classList.add('indicator-on')
   } else {
+    canvas.classList.add('no-wrap-canvas')
     span.classList.add('indicator-off')
   }
 }, [props.wrap])
