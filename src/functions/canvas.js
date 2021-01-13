@@ -26,9 +26,7 @@ export function clearCanvas (id) {
 }
 
 export const gridDraw = (tileSize, fieldSize) => {
-  
   const p = 0;
-  console.log(tileSize, fieldSize)
   const canvas = document.getElementById('grid-canvas')
   canvas.width = 500
   const ctx = canvas.getContext('2d')

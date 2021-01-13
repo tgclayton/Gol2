@@ -60,10 +60,17 @@
   background: rgb(141, 139, 139);
 }
 
+.nav-button:hover {
+  background: rgb(114, 113, 113);
+}
+
 .selected-nav{
   background: rgb(58, 58, 58);
   color: ivory;
 }
+.selected-nav:hover {
+  background: rgb(58, 58, 58) !important;
+} 
 
 #left-column {
 width: 27.5%;
@@ -80,6 +87,7 @@ width: 27.5%;
 }
 
 .control-panel{
+  width: 70%;
   border: 3pt solid black;
   padding: 1em ;
   background-color:rgb(160, 158, 158);
@@ -90,4 +98,32 @@ width: 27.5%;
   position: absolute;
   top: 0;
   margin-top: 3em;
+}
+
+.flex-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+#speed-control {
+  padding: .5em 1em;
+  margin: 1em;
+}
+
+#speed-control p{
+  margin: 0 1em;
+}
+
+#speed-control div {
+  border: 1pt solid black;
+  margin: 2px;
+  background-color: ivory;
+  padding: 0 .25em;
+  user-select: none;
+}
+
+.active-speed {
+  color: ivory;
+  background-color: rgb(112, 112, 82) !important;
 }

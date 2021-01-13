@@ -1,7 +1,7 @@
 #canvas-container {
-  width: min(93%, 83vh);
+  width: min(90%, 83vh);
   /* max-width: 50vh; */
-  padding-bottom: min(93%, 85vh);
+  padding-bottom: min(90%, 85vh);
   border: 4pt solid rgb(68, 68, 68);
   position: relative;
   height: 0;

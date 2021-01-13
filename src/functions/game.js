@@ -29,8 +29,8 @@ export const createField = (size, tileSize, wrap) => {
   for (let i = 0; i < size * size; i++) {
     field[i] = {
       neighbours: {
-        wrappedNeighbours: getNeighbours(i, size, false),
-        unWrappedNeighbours: getNeighbours(i, size, true),
+        wrappedNeighbours: getNeighbours(i, size, true),
+        unWrappedNeighbours: getNeighbours(i, size, false),
       },
       canvasTileCrds: canvasTileCoords(i, size, tileSize)
     }

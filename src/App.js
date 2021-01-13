@@ -8,21 +8,21 @@ import Info from './components/Info'
 import React, { useState, useEffect } from "react"
 import { Route, BrowserRouter as Router, Switch, Link, Redirect } from 'react-router-dom'
 import { createField, newMakeRandomMap } from './functions/game.js'
-import { canvasDraw, gridDraw } from './functions/canvas.js'
+import { canvasDraw,} from './functions/canvas.js'
 import { } from './functions/app.js'
 
 function App() {
-  const [canvasSize, setCanvasSize] = useState(500)
-  const [fieldSize, setFieldSize] = useState(20)
-  const [tileSize, setTileSize] = useState(25)
-  const [wrap, setWrap] = useState(true)
-  const [field, setField] = useState(createField(fieldSize, tileSize, wrap))
-  const [liveCells, setLiveCells] = useState([])
+  const [canvasSize, setCanvasSize] = useState(500) //Height/width of the game canvas
+  const [fieldSize, setFieldSize] = useState(20) //Height/width in cells of the game board
+  const [tileSize, setTileSize] = useState(25) 
+  const [wrap, setWrap] = useState(true) //whether or not edge wrapping is on or not
+  const [field, setField] = useState(createField(fieldSize, tileSize, wrap)) //object containing data on cell coordinates and neighbours
+  const [liveCells, setLiveCells] = useState([]) // array of index numbers of live cells
   const [leftPanelDisplay, setleftPanelDisplay] = useState('controls')
   const [rightPanelDisplay, setRightPanelDisplay] = useState('info')
-  const [generation, setGeneration] = useState(0)
-  // const [showGrid, setShowGrid] = useState(false)
-
+  const [generation, setGeneration] = useState(0) //current generation displayed
+  const [speed, setActiveSpeed] = useState(4)
+ 
 
   //Controls highlighting of selected nav button
   useEffect(() => {
@@ -61,6 +61,10 @@ function App() {
     const size = Number(document.getElementById('canvasSize-change').value)
     setCanvasSize(size)
     canvasDraw(field, liveCells, tileSize)
+  }
+
+  function changeSpeed(speed) {
+    setActiveSpeed(speed)
   }
 
   function checkState() {
@@ -113,6 +117,8 @@ function App() {
                   changeSize={changeSize}
                   fieldSize={fieldSize}
                   wrap={{wrap, toggleWrap}}
+                  speed={speed}
+                  changeSpeed={changeSpeed}
                 />
               </Route>
             </Switch>
