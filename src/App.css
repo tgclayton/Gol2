@@ -115,7 +115,12 @@ width: 27.5%;
   margin: 0 1em;
 }
 
-#speed-control div {
+#speed-control h5{
+  margin: 0.1em 1em;
+  padding-bottom: .2em;
+}
+
+.speed-button {
   border: 1pt solid black;
   margin: 2px;
   background-color: ivory;
