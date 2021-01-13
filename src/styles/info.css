@@ -1,0 +1,15 @@
+#wrap-indicator {
+
+}
+
+.indicator-on {
+  background-color: green;
+  padding: 0 .3em .1em;
+  font-weight: 700;
+}
+
+.indicator-off {
+  background-color: rgb(211, 4, 4);
+  padding: 0 .3em .1em;
+  font-weight: 700;
+}

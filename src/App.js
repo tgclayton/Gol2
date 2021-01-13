@@ -21,7 +21,8 @@ function App() {
   const [leftPanelDisplay, setleftPanelDisplay] = useState('controls')
   const [rightPanelDisplay, setRightPanelDisplay] = useState('info')
   const [generation, setGeneration] = useState(0) //current generation displayed
-  const [speed, setActiveSpeed] = useState(30)
+  const [speed, setActiveSpeed] = useState(30) //speed at which new generations are created when game is running
+  const [game, setGame] = useState(null) //holds the interval when game is running
  
 
   //Controls highlighting of selected nav button
