@@ -71,7 +71,8 @@ width: 25%;
 
 #center-column {
   width: 50%;
-  min-width: 500px
+  min-width: 500px;
+  background-color: rgb(126, 126, 110);
 }
 
 #right-column {
@@ -80,7 +81,7 @@ width: 25%;
 
 .control-panel{
   border: 3pt solid black;
-  padding: 1em ;
+  padding: 2em ;
   background-color:rgb(160, 158, 158);
   /* color: white; */
 }
