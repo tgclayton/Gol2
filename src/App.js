@@ -7,16 +7,16 @@ import Info from './components/Info'
 
 import React, { useState, useEffect } from "react"
 import { Route, BrowserRouter as Router, Switch, Link, Redirect } from 'react-router-dom'
-import { createField, newMakeRandomMap } from './functions/game.js'
+import { createField, newMakeRandomMap, makeNextGen } from './functions/game.js'
 import { canvasDraw,} from './functions/canvas.js'
 import { } from './functions/app.js'
 
 function App() {
   const [canvasSize, setCanvasSize] = useState(500) //Height/width of the game canvas
-  const [fieldSize, setFieldSize] = useState(20) //Height/width in cells of the game board
+  const [boardSize, setboardSize] = useState(20) //Height/width in cells of the game board
   const [tileSize, setTileSize] = useState(25) 
   const [wrap, setWrap] = useState(true) //whether or not edge wrapping is on or not
-  const [field, setField] = useState(createField(fieldSize, tileSize, wrap)) //object containing data on cell coordinates and neighbours
+  const [field, setField] = useState(createField(boardSize, tileSize, wrap)) //object containing data on cell coordinates and neighbours
   const [liveCells, setLiveCells] = useState([]) // array of index numbers of live cells
   const [leftPanelDisplay, setleftPanelDisplay] = useState('controls')
   const [rightPanelDisplay, setRightPanelDisplay] = useState('info')
@@ -40,7 +40,7 @@ function App() {
   function changeSize(size) {
     const tileSize = canvasSize / size
     setField(createField(size, tileSize))
-    setFieldSize(size)
+    setboardSize(size)
     setTileSize(tileSize)
     clearGame()
   }
@@ -52,7 +52,7 @@ function App() {
   }
 
   function makeRandomStart() {
-    const randMap = newMakeRandomMap(fieldSize)
+    const randMap = newMakeRandomMap(boardSize)
     setLiveCells(randMap)
     canvasDraw(field, randMap, tileSize)
   }
@@ -68,7 +68,7 @@ function App() {
   }
 
   function checkState() {
-    console.log("fieldSize:", fieldSize)
+    console.log("boardSize:", boardSize)
     console.log("tileSize:", tileSize)
     console.log("canvasSize:", canvasSize)
   }
@@ -76,7 +76,13 @@ function App() {
   function toggleWrap () {
     const newWrap = !wrap
     setWrap(newWrap)
-    setField(createField(fieldSize, tileSize, newWrap))
+    setField(createField(boardSize, tileSize, newWrap))
+  }
+
+ function nextGen () {
+  const nextGen = makeNextGen(liveCells, boardSize, field, wrap)
+  setLiveCells(nextGen)
+  canvasDraw(field, liveCells, tileSize)
   }
 
   return (
@@ -101,9 +107,9 @@ function App() {
               <Route path="/test-controls">
                 <TestControls
                   makeRandomStart={makeRandomStart}
-                  fieldSize={fieldSize}
+                  boardSize={boardSize}
                   changeCanvasSize={changeCanvasSize}
-                  size={fieldSize}
+                  size={boardSize}
                   canvasSize={canvasSize}
                   checkState={checkState}
                   liveCells={liveCells}
@@ -115,10 +121,11 @@ function App() {
                   makeRandomStart={makeRandomStart}
                   clearGame={clearGame}
                   changeSize={changeSize}
-                  fieldSize={fieldSize}
+                  boardSize={boardSize}
                   wrap={{wrap, toggleWrap}}
                   speed={speed}
                   changeSpeed={changeSpeed}
+                  nextGen={nextGen}
                 />
               </Route>
             </Switch>
@@ -140,7 +147,7 @@ function App() {
               <Route path={`/${leftPanelDisplay}/info`}>
                 <Info
                   liveCells={liveCells.length}
-                  size={fieldSize}
+                  size={boardSize}
                   gen={generation}
                   wrap={wrap}
                 />

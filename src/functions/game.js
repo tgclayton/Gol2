@@ -72,6 +72,24 @@ export const makeRandomMap = (size) => {
   return { map: newField, liveCells: liveCount, checkSet: checkSet }
 }
 
+//nextGen function built for GoL2
+export function makeNextGen(liveIdxs, size, field, wrap) {
+const neighbours = wrap? 'wrappedNeighbours': 'unWrappedNeighbours'
+const length = (size*size) -1
+const newLiveIdxs = []
+
+  for (let i = 0; i < length - 1; i++) {
+    const oldVal = liveIdxs.includes(i)? 1: 0
+    const n = field[i].neighbours[neighbours]
+    const ln = findLiveNeighbours(liveIdxs, n)
+    const newVal = cellTruthTable[oldVal][ln]
+    if (newVal === 1){
+      newLiveIdxs.push(i)
+    }
+  }
+  return newLiveIdxs
+}
+
 // new next generation function using loop instead of map
 export function nextGeneration(map, size, checkSet, field) {
   let liveCount = 0
@@ -146,7 +164,7 @@ export function coordsToIdx(crds, size, wrap) {
     }
     // console.log(crds)
   } else {
-    if (crds.x > (size - 1) || crds.x < 0 || crds.y > (size - 1) || crds.y < 0){
+    if (crds.x > (size - 1) || crds.x < 0 || crds.y > (size - 1) || crds.y < 0) {
       return 'bad'
     }
   }
@@ -171,12 +189,23 @@ export function getNeighbours(idx, size, wrap) {
   return neighbours
 }
 
-export function findLiveNeighbours(field, neighbours) {
+export function findLiveNeighbours(liveCells, neighbours) {
   let ln = 0
-  neighbours.forEach(idx => {
-    if (field[idx] === 1) {
+  neighbours.forEach(n => {
+    if(liveCells.includes(n)){
       ln++
     }
   })
   return ln
 }
+
+// Old version
+// export function findLiveNeighbours(field, neighbours) {
+//   let ln = 0
+//   neighbours.forEach(idx => {
+//     if (field[idx] === 1) {
+//       ln++
+//     }
+//   })
+//   return ln
+// }
