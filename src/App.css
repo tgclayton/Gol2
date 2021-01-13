@@ -52,6 +52,7 @@
 }
 
 .nav-button {
+  white-space: nowrap;
   color: black;
   padding: .5em;
   border: 2pt solid black;
@@ -74,6 +75,7 @@
 
 #left-column {
 width: 27.5%;
+min-width: 250px;
 }
 
 #center-column {
@@ -83,11 +85,13 @@ width: 27.5%;
 }
 
 #right-column {
-  width: 27.5%
+  width: 27.5%;
+  min-width: 250px;
 }
 
 .control-panel{
   width: 70%;
+  min-width: 220px;
   border: 3pt solid black;
   padding: 1em ;
   background-color:rgb(160, 158, 158);
