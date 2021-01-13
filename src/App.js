@@ -8,13 +8,13 @@ import Info from './components/Info'
 import React, { useState, useEffect } from "react"
 import { Route, BrowserRouter as Router, Switch, Link, Redirect } from 'react-router-dom'
 import { createField, newMakeRandomMap, makeNextGen } from './functions/game.js'
-import { canvasDraw,} from './functions/canvas.js'
+import { canvasDraw, } from './functions/canvas.js'
 import { } from './functions/app.js'
 
 function App() {
   const [canvasSize, setCanvasSize] = useState(500) //Height/width of the game canvas
   const [boardSize, setboardSize] = useState(30) //Height/width in cells of the game board
-  const [tileSize, setTileSize] = useState(500 / 30) 
+  const [tileSize, setTileSize] = useState(500 / 30)
   const [wrap, setWrap] = useState(true) //whether or not edge wrapping is on or not
   const [field, setField] = useState(createField(boardSize, tileSize, wrap)) //object containing data on cell coordinates and neighbours
   const [liveCells, setLiveCells] = useState([]) // array of index numbers of live cells
@@ -22,10 +22,11 @@ function App() {
   const [rightPanelDisplay, setRightPanelDisplay] = useState('info')
   const [generation, setGeneration] = useState(0) //current generation displayed
   const [speed, setActiveSpeed] = useState(300) //speed at which new generations are created when game is running
-  const [game, setGame] = useState(null) //holds the interval when game is running
   
+  let game = null //holds the interval when game is running
   let workLiveCells = null
   let workGen = null
+  let running = false
 
   //Controls highlighting of selected nav button
   useEffect(() => {
@@ -56,10 +57,18 @@ function App() {
   }
 
   function makeRandomStart() {
+    const wasRunning = game ? true : false
+    console.log(wasRunning)
+    pauseGame()
     clearGame()
     const randMap = newMakeRandomMap(boardSize)
-    setLiveCells(randMap)
     canvasDraw(field, randMap, tileSize)
+    if (wasRunning) {
+      console.log('got here')
+      runGame(false, randMap)
+    } else {
+      setLiveCells(randMap)
+    }
   }
 
   function changeCanvasSize() {
@@ -69,12 +78,16 @@ function App() {
   }
 
   function changeSpeed(speed) {
+    pauseGame()
     setActiveSpeed(speed)
+    runGame()
   }
 
   function pauseGame() {
+    running = false
     clearInterval(game)
-    setGame(null)
+    console.log('game', game)
+    setLiveCells(workLiveCells)
   }
 
   function checkState() {
@@ -83,19 +96,19 @@ function App() {
     console.log("canvasSize:", canvasSize)
   }
 
-  function toggleWrap () {
+  function toggleWrap() {
     const newWrap = !wrap
     setWrap(newWrap)
     setField(createField(boardSize, tileSize, newWrap))
   }
 
- function nextGen () { //generates next generation when game is not freely running
-  // console.log('nextGen occurred')
-  const nextGen = makeNextGen(liveCells, boardSize, field, wrap)
-  setLiveCells(nextGen)
-  const newGen = generation + 1
-  setGeneration(newGen)
-  canvasDraw(field, liveCells, tileSize)
+  function nextGen() { //generates next generation when game is not freely running
+    // console.log('nextGen occurred')
+    const nextGen = makeNextGen(liveCells, boardSize, field, wrap)
+    setLiveCells(nextGen)
+    const newGen = generation + 1
+    setGeneration(newGen)
+    canvasDraw(field, liveCells, tileSize)
   }
 
   function runningNextGen() { //generates next generation while game is running freely
@@ -104,18 +117,18 @@ function App() {
     canvasDraw(field, nextGen, tileSize)
   }
 
-  function runGame (singleGen) {
-    // const runCheck = wasRunning === undefined ? !this.state.gameRunning : wasRunning
+  function runGame(singleGen, workCells) {
+    // console.log('game:',game)
     if (!game) {
       if (singleGen) {
         nextGen()
       } else {
-          workLiveCells = [...liveCells]
-          setGame(setInterval(() => runningNextGen(), speed))
-        }
+        workLiveCells = workCells ? workCells : [...liveCells]
+        game = setInterval(() => runningNextGen(), speed)
       }
     }
-  
+  }
+
   return (
     <Router>
       <Redirect to={`/`}></Redirect>
@@ -144,7 +157,7 @@ function App() {
                   canvasSize={canvasSize}
                   checkState={checkState}
                   liveCells={liveCells}
-                  />
+                />
               </Route>
               <Route path="/controls">
                 <Controls
@@ -153,7 +166,7 @@ function App() {
                   clearGame={clearGame}
                   changeSize={changeSize}
                   boardSize={boardSize}
-                  wrap={{wrap, toggleWrap}}
+                  wrap={{ wrap, toggleWrap }}
                   speed={speed}
                   changeSpeed={changeSpeed}
                   runGame={runGame}
@@ -164,7 +177,7 @@ function App() {
           </div>
 
           <div id='center-column' className="column">
-            <Game canvasSize={canvasSize} liveCells={liveCells} size={boardSize}/>
+            <Game canvasSize={canvasSize} liveCells={liveCells} size={boardSize} />
           </div>
 
           <div id='right-column' className="column">
@@ -174,7 +187,7 @@ function App() {
             </div>
             {/* <Stats/> */}
             <Switch>
-              <Route  path={`/${leftPanelDisplay}/saves`}>
+              <Route path={`/${leftPanelDisplay}/saves`}>
               </Route>
               <Route path={`/${leftPanelDisplay}/info`}>
                 <Info
