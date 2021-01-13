@@ -23,12 +23,15 @@ const cellTruthTable = {
   }
 }
 
-export const createField = (size, tileSize) => {
+export const createField = (size, tileSize, wrap) => {
   const field = {}
   // const tileSize = 2
   for (let i = 0; i < size * size; i++) {
     field[i] = {
-      wrappedNeighbours: getNeighbours(i, size),
+      neighbours: {
+        wrappedNeighbours: getNeighbours(i, size, false),
+        unWrappedNeighbours: getNeighbours(i, size, true),
+      },
       canvasTileCrds: canvasTileCoords(i, size, tileSize)
     }
   }
@@ -129,37 +132,42 @@ export function canvasGridCoords(idx, size, tileSize) {
   return coords
 }
 
-export function coordsToIdx(coords, size) {
-  // console.log(size)
-  if (coords.x > (size - 1)) {
-    coords.x = 0
-  } else if (coords.x < 0) {
-    coords.x = size - 1
+export function coordsToIdx(crds, size, wrap) {
+  if (wrap) {
+    if (crds.x > (size - 1)) {
+      crds.x = 0
+    } else if (crds.x < 0) {
+      crds.x = size - 1
+    }
+    if (crds.y > (size - 1)) {
+      crds.y = 0
+    } else if (crds.y < 0) {
+      crds.y = size - 1
+    }
+    // console.log(crds)
+  } else {
+    if (crds.x > (size - 1) || crds.x < 0 || crds.y > (size - 1) || crds.y < 0){
+      return 'bad'
+    }
   }
-  if (coords.y > (size - 1)) {
-    coords.y = 0
-  } else if (coords.y < 0) {
-    coords.y = size - 1
-  }
-  // console.log(coords)
-  const y = coords.y * size
-  const idx = coords.x + y
+  const y = crds.y * size
+  const idx = crds.x + y
   return idx
 }
 
-export function getNeighbours(idx, size, knownNeighbours) {
-  let neighbours = knownNeighbours ? [...knownNeighbours] : []
+export function getNeighbours(idx, size, wrap) {
+  let neighbours = []
   const crds = idxToCoords(idx, size)
   // console.log(crds)
-  neighbours.push(coordsToIdx({ x: crds.x - 1, y: crds.y - 1 }, size))
-  neighbours.push(coordsToIdx({ x: crds.x - 1, y: crds.y }, size))
-  neighbours.push(coordsToIdx({ x: crds.x - 1, y: crds.y + 1 }, size))
-
-  neighbours.push(coordsToIdx({ x: crds.x, y: crds.y - 1 }, size))
-  neighbours.push(coordsToIdx({ x: crds.x, y: crds.y + 1 }, size))
-  neighbours.push(coordsToIdx({ x: crds.x + 1, y: crds.y - 1 }, size))
-  neighbours.push(coordsToIdx({ x: crds.x + 1, y: crds.y }, size))
-  neighbours.push(coordsToIdx({ x: crds.x + 1, y: crds.y + 1 }, size))
+  neighbours.push(coordsToIdx({ x: crds.x - 1, y: crds.y - 1 }, size, wrap))
+  neighbours.push(coordsToIdx({ x: crds.x - 1, y: crds.y }, size, wrap))
+  neighbours.push(coordsToIdx({ x: crds.x - 1, y: crds.y + 1 }, size, wrap))
+  neighbours.push(coordsToIdx({ x: crds.x, y: crds.y - 1 }, size, wrap))
+  neighbours.push(coordsToIdx({ x: crds.x, y: crds.y + 1 }, size, wrap))
+  neighbours.push(coordsToIdx({ x: crds.x + 1, y: crds.y - 1 }, size, wrap))
+  neighbours.push(coordsToIdx({ x: crds.x + 1, y: crds.y }, size, wrap))
+  neighbours.push(coordsToIdx({ x: crds.x + 1, y: crds.y + 1 }, size, wrap))
+  neighbours = neighbours.filter(n => n !== 'bad')
   return neighbours
 }
 

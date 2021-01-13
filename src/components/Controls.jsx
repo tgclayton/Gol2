@@ -1,8 +1,12 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { gridDraw, clearCanvas } from '../functions/canvas.js'
 
 export default function Controls(props) {
   const [showGrid, setShowGrid] = useState(false)
+
+  useEffect(()=> {
+    toggleGrid()
+  }, [])
 
   function toggleGrid() {
     if (showGrid) {
@@ -34,6 +38,7 @@ export default function Controls(props) {
       <button onClick={() => changeFieldSize(Number(document.getElementById('size-change').value))} >Change Board Height/Width</button>
       <br /><br />
       <button onClick={() => toggleGrid()}>Toggle Grid</button>
+      <button onClick={() => props.wrap.toggleWrap(!props.wrap.wrap)}>Toggle Edge Wrapping</button>
     </div>
   )
 }

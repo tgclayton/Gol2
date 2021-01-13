@@ -3,7 +3,7 @@ import Game from './components/Game'
 import TestControls from './components/TestControls'
 import Controls from './components/Controls'
 import Instructions from './components/Instructions'
-import Stats from './components/Stats'
+import Info from './components/Info'
 
 import React, { useState, useEffect } from "react"
 import { Route, BrowserRouter as Router, Switch, Link, Redirect } from 'react-router-dom'
@@ -13,12 +13,13 @@ import { } from './functions/app.js'
 
 function App() {
   const [canvasSize, setCanvasSize] = useState(500)
-  const [fieldSize, setFieldSize] = useState(100)
-  const [tileSize, setTileSize] = useState(5)
-  const [field, setField] = useState(createField(fieldSize, tileSize))
+  const [fieldSize, setFieldSize] = useState(20)
+  const [tileSize, setTileSize] = useState(25)
+  const [wrap, setWrap] = useState(true)
+  const [field, setField] = useState(createField(fieldSize, tileSize, wrap))
   const [liveCells, setLiveCells] = useState([])
   const [leftPanelDisplay, setleftPanelDisplay] = useState('controls')
-  const [rightPanelDisplay, setRightPanelDisplay] = useState('stats')
+  const [rightPanelDisplay, setRightPanelDisplay] = useState('info')
   const [generation, setGeneration] = useState(0)
   // const [showGrid, setShowGrid] = useState(false)
 
@@ -68,6 +69,12 @@ function App() {
     console.log("canvasSize:", canvasSize)
   }
 
+  function toggleWrap () {
+    const newWrap = !wrap
+    setWrap(newWrap)
+    setField(createField(fieldSize, tileSize, newWrap))
+  }
+
   return (
     <Router>
       <Redirect to={`/`}></Redirect>
@@ -105,6 +112,7 @@ function App() {
                   clearGame={clearGame}
                   changeSize={changeSize}
                   fieldSize={fieldSize}
+                  wrap={{wrap, toggleWrap}}
                 />
               </Route>
             </Switch>
@@ -117,17 +125,18 @@ function App() {
           <div id='right-column' className="column">
             <div id="right-panel-nav" className="panel-nav">
               <Link to={`/${leftPanelDisplay}/saves`} replace id='nav-button-saves' className='nav-button' onClick={() => setRightPanelDisplay('saves')}>Saves</Link>
-              <Link to={`/${leftPanelDisplay}/stats`} replace id='nav-button-stats' className='nav-button' onClick={() => setRightPanelDisplay('stats')}>Stats</Link>
+              <Link to={`/${leftPanelDisplay}/info`} replace id='nav-button-info' className='nav-button' onClick={() => setRightPanelDisplay('info')}>Info</Link>
             </div>
             {/* <Stats/> */}
             <Switch>
               <Route  path={`/${leftPanelDisplay}/saves`}>
               </Route>
-              <Route path={`/${leftPanelDisplay}/stats`}>
-                <Stats
+              <Route path={`/${leftPanelDisplay}/info`}>
+                <Info
                   liveCells={liveCells.length}
                   size={fieldSize}
                   gen={generation}
+                  wrap={wrap}
                 />
               </Route>
             </Switch>
