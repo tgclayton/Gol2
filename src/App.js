@@ -20,6 +20,7 @@ function App() {
   const [leftPanelDisplay, setleftPanelDisplay] = useState('test-controls')
   const [rightPanelDisplay, setRightPanelDisplay] = useState('stats')
   const [generation, setGeneration] = useState(0)
+  const [showGrid, setShowGrid] = useState(false)
 
 
   //Controls highlighting of selected nav button
@@ -97,6 +98,7 @@ function App() {
                   checkState={checkState}
                   liveCells={liveCells}
                   tileSize={tileSize}
+                  grid={{showGrid, setShowGrid}}
                 />
               </Route>
               <Route path="/controls">
