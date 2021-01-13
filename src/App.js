@@ -45,7 +45,6 @@ function App() {
   }
 
   function clearGame() {
-    console.log('occurred')
     setLiveCells([])
     setGeneration(0)
     canvasDraw(field, [], tileSize)

@@ -25,23 +25,24 @@ export function clearCanvas (id) {
   ctx.clearRect(0, 0, canvas.width, canvas.height)
 }
 
-export const gridDraw = (tileSize) => {
-  const bw = 500;
-  const bh = 500;
+export const gridDraw = (tileSize, fieldSize) => {
+  
   const p = 0;
-  // const cw = bw + (p * 2) + 1;
-  // const ch = bh + (p * 2) + 1;
+  console.log(tileSize, fieldSize)
   const canvas = document.getElementById('grid-canvas')
+  canvas.width = 500
   const ctx = canvas.getContext('2d')
-  for (let x = 0; x <= bw; x += 40) {
+  ctx.clearRect(0, 0, canvas.width, canvas.height)
+  ctx.lineWidth = .3
+  for (let x = 0; x <= 500 ; x += 500 / fieldSize) {
     ctx.moveTo(tileSize + x + p, p);
-    ctx.lineTo(tileSize + x + p, bh + p);
+    ctx.lineTo(tileSize + x + p, 500 + p);
   }
 
 
-  for (let x = 0; x <= bh; x += 40) {
+  for (let x = 0; x <= 500 ; x += 500 / fieldSize) {
     ctx.moveTo(p, tileSize + x + p);
-    ctx.lineTo(bw + p, tileSize + x + p);
+    ctx.lineTo(500 + p, tileSize + x + p);
   }
 
   ctx.strokeStyle = "black";
