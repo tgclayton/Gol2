@@ -8,9 +8,10 @@ export default function Controls(props) {
   },[])
 
   useEffect(() => {
+    const activeSpeed = props.speed ===600? 1 :props.speed === 300? 2:props.speed === 120? 3: props.speed === 30? 4: 5
     const buttons = Array.from(document.getElementsByClassName('speed-button'))
     buttons.forEach(element => element.classList.remove('active-speed'))
-    document.getElementById(`speed-button-${props.speed}`).classList.add('active-speed')
+    document.getElementById(`speed-button-${activeSpeed}`).classList.add('active-speed')
   }, [props.speed])
 
   function toggleGrid() {
@@ -48,11 +49,11 @@ export default function Controls(props) {
       </div>
       <div id='speed-control' className='control-panel flex-row'>
         <p>Slower</p>
-        <div className='speed-button' id ={`speed-button-1`} onClick = {() => props.changeSpeed(1)}>1</div>
-        <div className='speed-button' id ={`speed-button-2`} onClick = {() => props.changeSpeed(2)}>2</div>
-        <div className='speed-button' id ={`speed-button-3`} onClick = {() => props.changeSpeed(3)}>3</div>
-        <div className='speed-button' id ={`speed-button-4`} onClick = {() => props.changeSpeed(4)}>4</div>
-        <div className='speed-button' id ={`speed-button-5`} onClick = {() => props.changeSpeed(5)}>5</div>
+        <div className='speed-button' id ={`speed-button-1`} onClick = {() => props.changeSpeed(600)}>1</div>
+        <div className='speed-button' id ={`speed-button-2`} onClick = {() => props.changeSpeed(300)}>2</div>
+        <div className='speed-button' id ={`speed-button-3`} onClick = {() => props.changeSpeed(120)}>3</div>
+        <div className='speed-button' id ={`speed-button-4`} onClick = {() => props.changeSpeed(30)}>4</div>
+        <div className='speed-button' id ={`speed-button-5`} onClick = {() => props.changeSpeed(1)}>5</div>
         <p>Faster</p>
       </div>
     </>

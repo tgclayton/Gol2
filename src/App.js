@@ -21,7 +21,7 @@ function App() {
   const [leftPanelDisplay, setleftPanelDisplay] = useState('controls')
   const [rightPanelDisplay, setRightPanelDisplay] = useState('info')
   const [generation, setGeneration] = useState(0) //current generation displayed
-  const [speed, setActiveSpeed] = useState(4)
+  const [speed, setActiveSpeed] = useState(30)
  
 
   //Controls highlighting of selected nav button
