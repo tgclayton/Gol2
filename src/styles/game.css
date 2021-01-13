@@ -9,7 +9,7 @@
   background-color: rgb(68, 68, 68);
 }
 
-#game-canvas {
+.canvas {
   background-color: rgb(134, 134, 134);
   height: 99%;
   width: 99%;
@@ -18,7 +18,13 @@
   right: .5%;
   top: .5%;
   bottom: .5%;
-  /* border: 3pt solid black; */
+}
+
+#game-canvas {
+}
+
+#grid-canvas {
+  background-color: transparent;
 }
 
 #canvas-dummy {

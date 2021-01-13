@@ -8,7 +8,7 @@ import Stats from './components/Stats'
 import React, { useState, useEffect } from "react"
 import { Route, BrowserRouter as Router, Switch, Link, Redirect } from 'react-router-dom'
 import { createField, newMakeRandomMap } from './functions/game.js'
-import { canvasDraw } from './functions/canvas.js'
+import { canvasDraw, gridDraw } from './functions/canvas.js'
 import { } from './functions/app.js'
 
 function App() {
@@ -24,12 +24,16 @@ function App() {
 
   //Controls highlighting of selected nav button
   useEffect(() => {
-    console.log(`left: ${leftPanelDisplay} right: ${rightPanelDisplay}`)
+    // console.log(`left: ${leftPanelDisplay} right: ${rightPanelDisplay}`)
     let buttons = Array.from(document.getElementsByClassName('nav-button'))
     buttons.forEach(element => element.classList.remove('selected-nav'))
     document.getElementById(`nav-button-${leftPanelDisplay}`).classList.add('selected-nav')
     document.getElementById(`nav-button-${rightPanelDisplay}`).classList.add('selected-nav')
   }, [leftPanelDisplay, rightPanelDisplay])
+
+  useEffect(() => {
+    canvasDraw(field, liveCells, tileSize)
+  })
 
   function changeSize(size) {
     const tileSize = canvasSize / size
@@ -40,6 +44,7 @@ function App() {
   }
 
   function clearGame() {
+    console.log('occurred')
     setLiveCells([])
     setGeneration(0)
     canvasDraw(field, [], tileSize)
@@ -54,6 +59,7 @@ function App() {
   function changeCanvasSize() {
     const size = Number(document.getElementById('canvasSize-change').value)
     setCanvasSize(size)
+    canvasDraw(field, liveCells, tileSize)
   }
 
   function checkState() {
@@ -85,18 +91,20 @@ function App() {
                 <TestControls
                   makeRandomStart={makeRandomStart}
                   fieldSize={fieldSize}
-                  changeSize={changeSize}
                   changeCanvasSize={changeCanvasSize}
                   size={fieldSize}
                   canvasSize={canvasSize}
                   checkState={checkState}
                   liveCells={liveCells}
+                  tileSize={tileSize}
                 />
               </Route>
               <Route path="/controls">
                 <Controls
                   makeRandomStart={makeRandomStart}
                   clearGame={clearGame}
+                  changeSize={changeSize}
+                  fieldSize={fieldSize}
                 />
               </Route>
             </Switch>

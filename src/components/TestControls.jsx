@@ -1,15 +1,17 @@
+import { canvasDraw, gridDraw, clearCanvas } from '../functions/canvas.js'
+
 export default function TestControls(props) {
   function checkProps(){
     console.log("props:", props)
   }
 
+  function drawGrid() {
+    clearCanvas('grid-canvas')
+    gridDraw(props.tileSize)
+  }
+
   return (
     <div id="test-controls" className="column control-panel">
-      <button onClick={() => props.makeRandomStart()}>Canvas Test</button>
-      <br></br>
-      <input id='size-change' type='number' defaultValue = {props.size} max = {150}></input>
-      <button onClick={() => props.changeSize(Number(document.getElementById('size-change').value))} >Change field size</button>
-      <br></br>
       <input id='canvasSize-change' type='number' defaultValue = {props.canvasSize} ></input>
       <button onClick={() => props.changeCanvasSize()} >Change canvas size</button>
       <br></br>
@@ -18,6 +20,8 @@ export default function TestControls(props) {
       <button onClick={() => props.checkState()}>Check State</button>
       <br></br>
       <button onClick={() => console.log(props.liveCells)}>Check LiveCells</button>
+      <br></br>
+      <button onClick = {() => drawGrid()}>Draw Grid</button>
     </div>
   )
 }
