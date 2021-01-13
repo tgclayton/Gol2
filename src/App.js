@@ -17,10 +17,10 @@ function App() {
   const [tileSize, setTileSize] = useState(5)
   const [field, setField] = useState(createField(fieldSize, tileSize))
   const [liveCells, setLiveCells] = useState([])
-  const [leftPanelDisplay, setleftPanelDisplay] = useState('test-controls')
+  const [leftPanelDisplay, setleftPanelDisplay] = useState('controls')
   const [rightPanelDisplay, setRightPanelDisplay] = useState('stats')
   const [generation, setGeneration] = useState(0)
-  const [showGrid, setShowGrid] = useState(false)
+  // const [showGrid, setShowGrid] = useState(false)
 
 
   //Controls highlighting of selected nav button
@@ -97,12 +97,11 @@ function App() {
                   canvasSize={canvasSize}
                   checkState={checkState}
                   liveCells={liveCells}
-                  tileSize={tileSize}
-                  grid={{showGrid, setShowGrid}}
-                />
+                  />
               </Route>
               <Route path="/controls">
                 <Controls
+                  tileSize={tileSize}
                   makeRandomStart={makeRandomStart}
                   clearGame={clearGame}
                   changeSize={changeSize}
