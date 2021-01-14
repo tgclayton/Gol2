@@ -12,7 +12,7 @@ import { canvasDraw, } from './functions/canvas.js'
 import { } from './functions/app.js'
 
 let game = null //holds the interval when game is running
-let workLiveCells = []
+let workLiveCells = new Set([])
 let workGen = null
 let wasRunning = false
 
@@ -22,7 +22,7 @@ function App() {
   const [tileSize, setTileSize] = useState(500 / 30)
   const [wrap, setWrap] = useState(true) //whether or not edge wrapping is on or not
   const [field, setField] = useState(createField(boardSize, tileSize, wrap)) //object containing data on cell coordinates and neighbours
-  const [liveCells, setLiveCells] = useState([]) // array of index numbers of live cells
+  const [liveCells, setLiveCells] = useState(new Set([])) // array of index numbers of live cells
   const [leftPanelDisplay, setleftPanelDisplay] = useState('controls')
   const [rightPanelDisplay, setRightPanelDisplay] = useState('info')
   const [generation, setGeneration] = useState(0) //current generation displayed
@@ -43,7 +43,8 @@ function App() {
       wasRunning = false
       runGame()
     }
-  })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  },[speed])
 
   function changeSize(size) {
     const tileSize = canvasSize / size
@@ -63,7 +64,7 @@ function App() {
 
   function makeRandomStart() {
     const wasRunning = game ? true : false
-    console.log(wasRunning)
+    // console.log(wasRunning)
     pauseGame()
     clearGame()
     setTimeout(() => {
@@ -132,7 +133,7 @@ function App() {
       if (singleGen) {
         nextGen()
       } else {
-        workLiveCells = workCells ? workCells : [...liveCells]
+        workLiveCells = workCells ? workCells : new Set([...liveCells])
         game = setInterval(() => runningNextGen(), speed)
       }
     }

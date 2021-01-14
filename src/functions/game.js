@@ -32,7 +32,7 @@ export const createField = (size, tileSize, wrap) => {
         wrappedNeighbours: getNeighbours(i, size, true),
         unWrappedNeighbours: getNeighbours(i, size, false),
       },
-      canvasTileCrds: canvasTileCoords(i, size, tileSize)
+      canvasTileCrds: canvasTileCoords(i, size, tileSize),
     }
   }
   return field
@@ -41,11 +41,11 @@ export const createField = (size, tileSize, wrap) => {
 //Produces a list of index values of living cells
 export const newMakeRandomMap = (size) => {
   const total = size * size
-  const liveCells = []
+  const liveCells = new Set([])
   for (let i = 0; i < total; i++) {
     let rand = Math.random()
     if (rand > 0.8) {
-      liveCells.push(i)
+      liveCells.add(i)
     }
   }
   // console.log('livecells:', liveCells)
@@ -76,14 +76,14 @@ export const makeRandomMap = (size) => {
 export function makeNextGen(liveIdxs, size, field, wrap) {
 const neighbours = wrap? 'wrappedNeighbours': 'unWrappedNeighbours'
 const length = (size*size) -1
-const newLiveIdxs = []
+const newLiveIdxs = new Set([])
   for (let i = 0; i < length - 1; i++) {
-    const oldVal = liveIdxs.indexOf(i) !==-1? 1: 0
+    const oldVal = liveIdxs.has(i)? 1: 0
     const n = field[i].neighbours[neighbours]
     const ln = findLiveNeighbours(liveIdxs, n)
     const newVal = cellTruthTable[oldVal][ln]
     if (newVal === 1){
-      newLiveIdxs.push(i)
+      newLiveIdxs.add(i)
     }
   }
   return newLiveIdxs
@@ -191,7 +191,7 @@ export function getNeighbours(idx, size, wrap) {
 export function findLiveNeighbours(liveCells, neighbours) {
   let ln = 0
   neighbours.forEach(n => {
-    if(liveCells.indexOf(n) !== -1){
+    if(liveCells.has(n)){
       ln++
     }
   })
