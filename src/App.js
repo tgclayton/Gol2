@@ -13,7 +13,7 @@ import { } from './functions/app.js'
 
 let game = null //holds the interval when game is running
 let workLiveCells = new Set([])
-let workGen = null
+let workGen = 0
 let wasRunning = false
 
 function App() {
@@ -28,7 +28,7 @@ function App() {
   const [generation, setGeneration] = useState(0) //current generation displayed
   const [speed, setActiveSpeed] = useState(300) //speed at which new generations are created when game is running
 
-
+  
   //Controls highlighting of selected nav button
   useEffect(() => {
     // console.log(`left: ${leftPanelDisplay} right: ${rightPanelDisplay}`)
@@ -97,6 +97,7 @@ function App() {
       game = null
       console.log('game', game)
       setLiveCells(workLiveCells)
+      setGeneration(workGen)
     }
   }
 
@@ -124,6 +125,9 @@ function App() {
   function runningNextGen() { //generates next generation while game is running freely
     const nextGen = makeNextGen(workLiveCells, boardSize, field, wrap)
     workLiveCells = nextGen
+    workGen++
+    document.getElementById('gen-info').innerHTML = workGen
+    document.getElementById('livecell-info').innerHTML = workLiveCells.size
     canvasDraw(field, nextGen, tileSize)
   }
 
@@ -200,7 +204,7 @@ function App() {
               </Route>
               <Route path={`/${leftPanelDisplay}/info`}>
                 <Info
-                  liveCells={liveCells.length}
+                  liveCells={liveCells.size}
                   size={boardSize}
                   gen={generation}
                   wrap={wrap}

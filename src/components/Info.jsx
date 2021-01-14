@@ -18,8 +18,8 @@ useEffect(()=> {
 
   return (
     <div id = "info-panel" className = "control-panel">
-      <p>Live Cells: {props.liveCells}</p>
-      <p>Generation: {props.gen}</p>
+      <p >Live Cells: <sp id ='livecell-info'>{props.liveCells}</sp></p>
+      <p >Generation: <sp id ='gen-info'>{props.gen}</sp></p>
       <p>Field Size: {props.size} x {props.size}</p>
       <p>Edge Wrapping: <sp id = 'wrap-indicator'>{wrap}</sp> </p>
     </div>

@@ -34,7 +34,7 @@ export const gridDraw = (tileSize, fieldSize) => {
   canvas.width = 500
   const ctx = canvas.getContext('2d')
   ctx.clearRect(0, 0, canvas.width, canvas.height)
-  ctx.lineWidth = .3
+  ctx.lineWidth = .2
   for (let x = 0; x <= 500 ; x += 500 / fieldSize) {
     ctx.moveTo(tileSize + x + p, p);
     ctx.lineTo(tileSize + x + p, 500 + p);
