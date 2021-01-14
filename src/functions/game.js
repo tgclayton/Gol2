@@ -44,7 +44,7 @@ export const newMakeRandomMap = (size) => {
   const liveCells = []
   for (let i = 0; i < total; i++) {
     let rand = Math.random()
-    if (rand > 0.9) {
+    if (rand > 0.8) {
       liveCells.push(i)
     }
   }
@@ -77,9 +77,8 @@ export function makeNextGen(liveIdxs, size, field, wrap) {
 const neighbours = wrap? 'wrappedNeighbours': 'unWrappedNeighbours'
 const length = (size*size) -1
 const newLiveIdxs = []
-
   for (let i = 0; i < length - 1; i++) {
-    const oldVal = liveIdxs.includes(i)? 1: 0
+    const oldVal = liveIdxs.indexOf(i) !==-1? 1: 0
     const n = field[i].neighbours[neighbours]
     const ln = findLiveNeighbours(liveIdxs, n)
     const newVal = cellTruthTable[oldVal][ln]
@@ -192,7 +191,7 @@ export function getNeighbours(idx, size, wrap) {
 export function findLiveNeighbours(liveCells, neighbours) {
   let ln = 0
   neighbours.forEach(n => {
-    if(liveCells.includes(n)){
+    if(liveCells.indexOf(n) !== -1){
       ln++
     }
   })

@@ -12,9 +12,9 @@ import { canvasDraw, } from './functions/canvas.js'
 import { } from './functions/app.js'
 
 let game = null //holds the interval when game is running
-let workLiveCells = null
+let workLiveCells = []
 let workGen = null
-let running = false
+let wasRunning = false
 
 function App() {
   const [canvasSize, setCanvasSize] = useState(500) //Height/width of the game canvas
@@ -27,7 +27,7 @@ function App() {
   const [rightPanelDisplay, setRightPanelDisplay] = useState('info')
   const [generation, setGeneration] = useState(0) //current generation displayed
   const [speed, setActiveSpeed] = useState(300) //speed at which new generations are created when game is running
-  
+
 
   //Controls highlighting of selected nav button
   useEffect(() => {
@@ -38,9 +38,12 @@ function App() {
     document.getElementById(`nav-button-${rightPanelDisplay}`).classList.add('selected-nav')
   }, [leftPanelDisplay, rightPanelDisplay])
 
-  // useEffect(() => {
-  //   canvasDraw(field, liveCells, tileSize)
-  // })
+  useEffect(() => {
+    if(wasRunning){
+      wasRunning = false
+      runGame()
+    }
+  })
 
   function changeSize(size) {
     const tileSize = canvasSize / size
@@ -51,6 +54,7 @@ function App() {
   }
 
   function clearGame() {
+    workLiveCells = []
     pauseGame()
     setLiveCells([])
     setGeneration(0)
@@ -62,14 +66,16 @@ function App() {
     console.log(wasRunning)
     pauseGame()
     clearGame()
-    const randMap = newMakeRandomMap(boardSize)
-    canvasDraw(field, randMap, tileSize)
-    if (wasRunning) {
-      console.log('got here')
-      runGame(false, randMap)
-    } else {
-      setLiveCells(randMap)
-    }
+    setTimeout(() => {
+      const randMap = newMakeRandomMap(boardSize)
+      canvasDraw(field, randMap, tileSize)
+      if (wasRunning) {
+        console.log('got here')
+        runGame(false, randMap)
+      } else {
+        setLiveCells(randMap)
+      }
+    }, 50);
   }
 
   function changeCanvasSize() {
@@ -79,14 +85,15 @@ function App() {
   }
 
   function changeSpeed(speed) {
+    wasRunning = game ? true : false
     pauseGame()
     setActiveSpeed(speed)
-    runGame()
   }
 
   function pauseGame() {
-    if(game) {
+    if (game) {
       clearInterval(game)
+      game = null
       console.log('game', game)
       setLiveCells(workLiveCells)
     }
@@ -120,7 +127,7 @@ function App() {
   }
 
   function runGame(singleGen, workCells) {
-    // console.log('game:',game)
+    console.log('game:', game)
     if (!game) {
       if (singleGen) {
         nextGen()
@@ -133,7 +140,6 @@ function App() {
 
   return (
     <Router>
-      <Redirect to={`/`}></Redirect>
       <Redirect to={`/${leftPanelDisplay}/${rightPanelDisplay}`}></Redirect>
       <div className="App">
         <header className="App-header">
