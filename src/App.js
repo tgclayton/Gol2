@@ -46,6 +46,62 @@ function App() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   },[speed])
 
+  useEffect(()=> {
+    window.addEventListener('keyup', e => handleKey(e))
+  },[])
+
+ function handleKey (e) {
+    // const focus = (document.activeElement === document.getElementById('set-gen'))
+    // if () {dddd
+      // console.log(e)
+      e.Handled = true;
+      e.preventDefault()
+      switch (e.key) {
+        case ' ':
+            game
+            ? pauseGame()
+            : runGame(true, liveCells)
+          break
+        case 'ArrowLeft':
+        case 'a':
+          // this.showPrevGen()
+          break
+        case 'ArrowRight':
+        case 'd':
+          runGame(true)
+          break
+        case 'ArrowDown':
+        case 's':
+          clearGame()
+          break
+        case 'ArrowUp':
+        case 'w':
+          e.preventDefault()
+          makeRandomStart()
+          break
+        case '1':
+          changeSpeed(600)
+          break
+        case '2':
+          changeSpeed(300)
+          break
+        case '3':
+          changeSpeed(120)
+          break
+        case '4':
+          changeSpeed(30)
+          break
+        case '5':
+          changeSpeed(1)
+          break
+        case 'e':
+          console.log('e pressed')
+          toggleWrap()
+        default: console.log(e)
+      }
+    // }
+  }
+
   function changeSize(size) {
     const tileSize = canvasSize / size
     setField(createField(size, tileSize))
@@ -55,11 +111,14 @@ function App() {
   }
 
   function clearGame() {
+    console.log('cleared')
     workLiveCells = []
     pauseGame()
-    setLiveCells([])
+    setLiveCells(new Set([]))
     setGeneration(0)
+    workGen = 0
     canvasDraw(field, [], tileSize)
+    document.getElementById('gen-info').innerHTML = workGen
   }
 
   function makeRandomStart() {
@@ -110,15 +169,17 @@ function App() {
   function toggleWrap() {
     const newWrap = !wrap
     setWrap(newWrap)
-    setField(createField(boardSize, tileSize, newWrap))
+    // setField(createField(boardSize, tileSize, newWrap))
   }
 
   function nextGen() { //generates next generation when game is not freely running
     // console.log('nextGen occurred')
+    // console.log('livecells', liveCells)
     const nextGen = makeNextGen(liveCells, boardSize, field, wrap)
     setLiveCells(nextGen)
     const newGen = generation + 1
     setGeneration(newGen)
+    console.log('nextgen:', nextGen)
     canvasDraw(field, liveCells, tileSize)
   }
 
@@ -132,12 +193,13 @@ function App() {
   }
 
   function runGame(singleGen, workCells) {
-    console.log('game:', game)
+    // console.log('game:', game)
     if (!game) {
       if (singleGen) {
         nextGen()
       } else {
         workLiveCells = workCells ? workCells : new Set([...liveCells])
+        workGen = generation
         game = setInterval(() => runningNextGen(), speed)
       }
     }

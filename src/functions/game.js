@@ -23,7 +23,7 @@ const cellTruthTable = {
   }
 }
 
-export const createField = (size, tileSize, wrap) => {
+export const createField = (size, tileSize) => {
   const field = {}
   // const tileSize = 2
   for (let i = 0; i < size * size; i++) {
