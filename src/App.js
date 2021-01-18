@@ -46,6 +46,13 @@ function App() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   },[speed])
 
+  useEffect(() => {
+    if(wasRunning){
+      runGame()
+    }
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+  },[wrap])
+
   useEffect(()=> {
     window.addEventListener('keyup', e => handleKey(e))
   },[])
@@ -97,6 +104,7 @@ function App() {
         case 'e':
           console.log('e pressed')
           toggleWrap()
+          break
         default: console.log(e)
       }
     }
@@ -152,6 +160,7 @@ function App() {
 
   function pauseGame() {
     if (game) {
+      wasRunning = true
       clearInterval(game)
       game = null
       console.log('game', game)
@@ -167,6 +176,7 @@ function App() {
   }
 
   function toggleWrap() {
+    pauseGame()
     const newWrap = !wrap
     setWrap(newWrap)
     // setField(createField(boardSize, tileSize, newWrap))
@@ -194,10 +204,12 @@ function App() {
 
   function runGame(singleGen, workCells) {
     // console.log('game:', game)
+    // console.log('game:', game)
     if (!game) {
       if (singleGen) {
         nextGen()
       } else {
+        wasRunning = false
         workLiveCells = workCells ? workCells : new Set([...liveCells])
         workGen = generation
         game = setInterval(() => runningNextGen(), speed)
