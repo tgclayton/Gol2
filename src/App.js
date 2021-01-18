@@ -51,8 +51,8 @@ function App() {
   },[])
 
  function handleKey (e) {
-    // const focus = (document.activeElement === document.getElementById('set-gen'))
-    // if () {dddd
+    const focus = (document.activeElement === document.getElementById('size-change'))
+    if (!focus) {
       // console.log(e)
       e.Handled = true;
       e.preventDefault()
@@ -99,7 +99,7 @@ function App() {
           toggleWrap()
         default: console.log(e)
       }
-    // }
+    }
   }
 
   function changeSize(size) {
