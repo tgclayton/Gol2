@@ -25,6 +25,7 @@
 
 #grid-canvas {
   background-color: transparent;
+  pointer-events: none
 }
 
 #canvas-dummy {
