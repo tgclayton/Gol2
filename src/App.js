@@ -39,7 +39,7 @@ function App() {
 
   useEffect(() => {
     if (wasRunning) {
-      wasRunning = false
+      wasRunning = true
       runGame()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -52,7 +52,7 @@ function App() {
 
   useEffect(() => {
     if (wasRunning) {
-      wasRunning = false
+      wasRunning = true
       runGame()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -196,9 +196,10 @@ function App() {
   }
 
   function toggleWrap() { //fix so doesnt cause game to start running always
-    pauseGame()
     wasRunning = false
-    console.log(wrap)
+    if(game){
+      pauseGame()
+    }
     const newWrap = !wrap
     setWrap(newWrap)
     // setField(createField(boardSize, tileSize, newWrap))
@@ -229,9 +230,6 @@ function App() {
   }
 
   function runGame(singleGen, workCells) {
-    // console.log('game:', game)
-    // console.log('game:', game)
-
     if (!game && liveCells.size > 0) {
       if (singleGen) {
         nextGen()
