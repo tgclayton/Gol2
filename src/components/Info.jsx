@@ -18,10 +18,10 @@ useEffect(()=> { //needs fix so works when info screen not visible
 
   return (
     <div id = "info-panel" className = "control-panel">
-      <p >Live Cells: <sp id ='livecell-info'>{props.liveCells.size}</sp></p>
-      <p >Generation: <sp id ='gen-info'>{props.gen}</sp></p>
+      <p >Live Cells: <span id ='livecell-info'>{props.liveCells.size}</span></p>
+      <p >Generation: <span id ='gen-info'>{props.gen}</span></p>
       <p>Field Size: {props.size} x {props.size}</p>
-      <p>Edge Wrapping: <sp id = 'wrap-indicator'>{wrap}</sp> </p>
+      <p>Edge Wrapping: <span id = 'wrap-indicator'>{wrap}</span> </p>
     </div>
   )
 }

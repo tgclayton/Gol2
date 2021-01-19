@@ -28,6 +28,8 @@ function App() {
   const [generation, setGeneration] = useState(0) //current generation displayed
   const [speed, setActiveSpeed] = useState(30) //speed at which new generations are created when game is running
 
+ let shiftDown = false
+
   //Controls highlighting of selected nav button
   useEffect(() => {
     // console.log(`left: ${leftPanelDisplay} right: ${rightPanelDisplay}`)
@@ -59,11 +61,14 @@ function App() {
   }, [wrap])
 
   function handleKey(e) {
+    if (e.key ==="Shift"){
+      return
+    }
     const focus = (document.activeElement === document.getElementById('size-change'))
     if (!focus) {
-      console.log('keydown handled')
-      e.Handled = true;
-      e.preventDefault()
+      // console.log('keydown handled')
+      // e.Handled = true;
+      // e.preventDefault()
       switch (e.key) {
         case ' ':
           game
@@ -104,7 +109,10 @@ function App() {
         case 'e':
           toggleWrap()
           break
-        default: console.log(e)
+         case 'Shift':
+           shiftDown = true
+           break 
+        default: console.log(e.key)
       }
     }
   }
@@ -246,11 +254,11 @@ function App() {
     const newCells = new Set([...cells])
     setLiveCells(newCells)
   }
-
+// 
   return (
     <Router>
       <Redirect to={`/${leftPanelDisplay}/${rightPanelDisplay}`}></Redirect>
-      <div className="App" onKeyDown={(e) => handleKey(e)} tabIndex="0">
+      <div className="App"  tabIndex={0} onKeyDown={(e) => handleKey(e)}>
         <header className="App-header">
           <h2>Game of Life</h2>
         </header>
@@ -295,6 +303,7 @@ function App() {
 
           <div id='center-column' className="column">
             <Game
+              shiftDown={shiftDown}
               running={game}
               liveCells={liveCells}
               canvasSize={canvasSize}

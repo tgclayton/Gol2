@@ -1,4 +1,4 @@
-import { canvasDraw, gridDraw, clearCanvas } from '../functions/canvas.js'
+// import { canvasDraw, gridDraw, clearCanvas } from '../functions/canvas.js'
 
 
 export default function TestControls(props) {

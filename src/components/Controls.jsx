@@ -5,6 +5,7 @@ export default function Controls(props) {
   const [showGrid, setShowGrid] = useState(true)
   useEffect(() => {
     gridDraw(props.tileSize, props.boardSize)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   useEffect(() => {
