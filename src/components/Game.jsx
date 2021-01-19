@@ -34,9 +34,6 @@ export default function Game(props) {
         const canvas = document.getElementById('game-canvas')
         const crds = getCursorPosition(e, canvas)
         const cellIdx = props.crdsToIdx(crds, props.boardSize)
-        console.log('crds:', crds)
-        console.log('')
-        console.log('current:', current)
         if (crds.x !== current.x || crds.y !== current.y) {
           if (!workLiveCells.has(cellIdx)) {
             currentCell = crds

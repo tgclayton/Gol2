@@ -28,7 +28,6 @@ function App() {
   const [generation, setGeneration] = useState(0) //current generation displayed
   const [speed, setActiveSpeed] = useState(30) //speed at which new generations are created when game is running
 
-
   //Controls highlighting of selected nav button
   useEffect(() => {
     // console.log(`left: ${leftPanelDisplay} right: ${rightPanelDisplay}`)
@@ -59,11 +58,6 @@ function App() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [wrap])
 
-  useEffect(() => {
-    window.addEventListener('keyup', e => handleKey(e))
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
-
   function handleKey(e) {
     const focus = (document.activeElement === document.getElementById('size-change'))
     if (!focus) {
@@ -74,7 +68,7 @@ function App() {
         case ' ':
           game
             ? pauseGame()
-            : runGame(true, liveCells)
+            : runGame()
           break
         case 'ArrowLeft':
         case 'a':
@@ -112,12 +106,15 @@ function App() {
           console.log('e pressed')
           toggleWrap()
           break
+        case 'p':
+          console.log(workLiveCells)
+          break
         default: console.log(e)
       }
     }
   }
 
-  function drawCells (cells) {
+  function drawCells(cells) {
     canvasDraw(field, cells, tileSize)
   }
 
@@ -153,7 +150,7 @@ function App() {
     workGen = 0
     canvasDraw(field, [], tileSize)
     const genInfo = document.getElementById('gen-info')
-    if(genInfo){
+    if (genInfo) {
       genInfo.innerHTML = workGen
     }
   }
@@ -164,13 +161,13 @@ function App() {
     pauseGame()
     clearGame()
     // setTimeout(() => {
-      const randMap = newMakeRandomMap(boardSize)
-      canvasDraw(field, randMap, tileSize)
-      if (wasRunning) {
-        runGame(false, randMap)
-      } else {
-        setLiveCells(randMap)
-      }
+    const randMap = newMakeRandomMap(boardSize)
+    canvasDraw(field, randMap, tileSize)
+    if (wasRunning) {
+      runGame(false, randMap)
+    } else {
+      setLiveCells(randMap)
+    }
     // }, 25);
   }
 
@@ -206,6 +203,7 @@ function App() {
   function toggleWrap() { //fix so doesnt cause game to start running always
     pauseGame()
     wasRunning = false
+    console.log(wrap)
     const newWrap = !wrap
     setWrap(newWrap)
     // setField(createField(boardSize, tileSize, newWrap))
@@ -252,15 +250,15 @@ function App() {
     }
   }
 
- function changeLiveCells(cells) {
-   const newCells = new Set([...cells])
+  function changeLiveCells(cells) {
+    const newCells = new Set([...cells])
     setLiveCells(newCells)
   }
 
   return (
     <Router>
       <Redirect to={`/${leftPanelDisplay}/${rightPanelDisplay}`}></Redirect>
-      <div className="App">
+      <div className="App" onKeyDown={(e) => handleKey(e)}>
         <header className="App-header">
           <h2>Game of Life</h2>
         </header>
@@ -269,7 +267,7 @@ function App() {
             <div id="left-panel-nav" className="panel-nav">
               <Link to={`/controls/${rightPanelDisplay}`} replace id='nav-button-controls' className='nav-button' onClick={() => setleftPanelDisplay('controls')}>Controls</Link>
               <Link to={`/instructions/${rightPanelDisplay}`} replace id='nav-button-instructions' className='nav-button' onClick={() => setleftPanelDisplay('instructions')}>Instructions</Link>
-              <Link to={`/test-controls/${rightPanelDisplay}`} replace id='nav-button-test-controls' className='nav-button' onClick={() => setleftPanelDisplay('test-controls')}>Test Controls</Link>
+              {/* <Link to={`/test-controls/${rightPanelDisplay}`} replace id='nav-button-test-controls' className='nav-button' onClick={() => setleftPanelDisplay('test-controls')}>Test Controls</Link> */}
             </div>
             <Switch>
               <Route path="/instructions">
@@ -305,7 +303,7 @@ function App() {
 
           <div id='center-column' className="column">
             <Game
-              running = {game}
+              running={game}
               liveCells={liveCells}
               canvasSize={canvasSize}
               crdsToIdx={coordsToIdx}
