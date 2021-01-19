@@ -7,7 +7,7 @@ import Info from './components/Info'
 
 import React, { useState, useEffect } from "react"
 import { Route, BrowserRouter as Router, Switch, Link, Redirect } from 'react-router-dom'
-import { createField, newMakeRandomMap, makeNextGen } from './functions/game.js'
+import { createField, newMakeRandomMap, makeNextGen, coordsToIdx } from './functions/game.js'
 import { canvasDraw, } from './functions/canvas.js'
 import { } from './functions/app.js'
 
@@ -47,6 +47,11 @@ function App() {
   },[speed])
 
   useEffect(() => {
+  canvasDraw(field,liveCells, tileSize)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  },[liveCells])
+
+  useEffect(() => {
     if(wasRunning){
       runGame()
     }
@@ -55,6 +60,7 @@ function App() {
 
   useEffect(()=> {
     window.addEventListener('keyup', e => handleKey(e))
+       // eslint-disable-next-line react-hooks/exhaustive-deps
   },[])
 
  function handleKey (e) {
@@ -107,6 +113,18 @@ function App() {
           break
         default: console.log(e)
       }
+    }
+  }
+
+ function toggleTile (crds) {
+    let idx = coordsToIdx(crds, boardSize)
+    console.log('idx:', idx)
+    // idx = field[idx].canvasTileCrds
+    if (!game) {
+      const newLiveCells = new Set([...liveCells])
+      newLiveCells.add(idx)
+      setLiveCells(newLiveCells)
+      // canvasDraw(field, liveCells, tileSize)
     }
   }
 
@@ -264,7 +282,12 @@ function App() {
           </div>
 
           <div id='center-column' className="column">
-            <Game canvasSize={canvasSize} liveCells={liveCells} size={boardSize} />
+            <Game 
+            canvasSize={canvasSize} 
+            liveCells={liveCells}
+            size={boardSize}
+            toggleTile={toggleTile}
+            boardSize={boardSize} />
           </div>
 
           <div id='right-column' className="column">
