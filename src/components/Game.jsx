@@ -8,6 +8,7 @@ export default function Game(props) {
   let workLiveCells = props.liveCells || new Set([])
   // let running = props.running ? true : false
   let shiftDown = false
+  let firstCell = null
 
   useEffect(() => {
     window.addEventListener('keydown', (e) => handleKeyDown(e))
@@ -45,30 +46,51 @@ export default function Game(props) {
     return { x: Math.floor(finX / relTileWidth), y: Math.floor(finY / relTileHeight) }
   }
 
+  function getSelectedCells(first, final) {
+    // console.log(`first:${first.x},${first.y} final:${final.x},${final.y}`)
+    let selected = new Set([])
+    const minX = Math.min(first.x, final.x)
+    const minY = Math.min(first.y, final.y)
+    const maxX = Math.max(first.x, final.x)
+    const maxY = Math.max(first.y, final.y)
+    // console.log(minX,maxX,minY,maxY)
+    for (let i = minX; i <= maxX; i++) {
+      console.log(i)
+      for (let n = minY; n <= maxY; n++) {
+        const crds = {x:i, y:n}
+        // console.log('crds:', crds)
+        selected.add(props.crdsToIdx(crds, props.boardSize))
+      }
+    }
+    console.log(selected)
+    return selected
+  }
+
   function handleCanvasEvent(e, current) {
-    // console.log(e)
+    console.log(e)
     // e.stopPropagation()
     // e.preventDefault()
     // console.log(shiftDown)
-    if (shiftDown) {
-
-    } else {
-      if (mouseDown && props.running === null) {
-        const canvas = document.getElementById('game-canvas')
-        const crds = getCursorPosition(e, canvas)
-        const cellIdx = props.crdsToIdx(crds, props.boardSize)
-        if (crds.x !== current.x || crds.y !== current.y) {
-          if (e.buttons === 1) {
-            currentCell = crds
-            workLiveCells.add(cellIdx)
-          } else {
-            currentCell = crds
-            workLiveCells.delete(cellIdx)
+    const button = e.buttons
+    const canvas = document.getElementById('game-canvas')
+    const crds = getCursorPosition(e, canvas)
+    const cellIdx = props.crdsToIdx(crds, props.boardSize)
+    if (mouseDown && props.running === null) { //only proceed if mouse is held down and game is not running
+      if (crds.x !== current.x || crds.y !== current.y) { // proceed if its first click or entering a new cell
+        currentCell = crds
+        if (shiftDown) { //handle shift dragging functions
+          if (!firstCell) {
+            firstCell = crds
           }
+        } else if (button === 1) { //left mouse adds cells
+          workLiveCells.add(cellIdx)
+        } else { //right mouse removes cells
+          workLiveCells.delete(cellIdx)
         }
-        props.drawCells(workLiveCells)
+
       }
     }
+    props.drawCells(workLiveCells)
   }
 
   //  onKeyDown={(e) => handleKeyDown(e)} onKeyUp={(e) => handleKeyUp(e)}
@@ -87,9 +109,21 @@ export default function Game(props) {
 
         onMouseUp={(e) => {
           if (props.running === null) {
-            mouseDown = false
-            currentCell = { x: null, y: null }
-            props.setLiveCells(workLiveCells)
+            if (firstCell) {
+              const selectedCells = getSelectedCells(firstCell, currentCell) || new Set([])
+              firstCell = null
+              mouseDown = false
+              currentCell = { x: null, y: null }
+              if (e.button === 2) {
+                console.log('rightmouse')
+                selectedCells.forEach(cell => workLiveCells.delete(cell))
+              } else {
+                console.log('leftmouse')
+                selectedCells.forEach(cell => workLiveCells.add(cell))
+              }
+            } else {
+              props.setLiveCells(workLiveCells)
+            }
           }
         }}
 
