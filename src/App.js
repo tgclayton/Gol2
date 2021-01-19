@@ -46,6 +46,10 @@ function App() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [speed])
 
+  // useEffect(() => {
+  //   console.log(liveCells)
+  // })
+
   useEffect(() => {
     canvasDraw(field, liveCells, tileSize)
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -53,6 +57,7 @@ function App() {
 
   useEffect(() => {
     if (wasRunning) {
+      wasRunning = false
       runGame()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -116,7 +121,12 @@ function App() {
     }
   }
 
+  function drawCells (cells) {
+    canvasDraw(field, cells, tileSize)
+  }
+
   function toggleTile(crds) {
+    // console.log('livecells:', liveCells)
     let idx = coordsToIdx(crds, boardSize)
     if (!game) {
       const newLiveCells = new Set([...liveCells])
@@ -125,6 +135,7 @@ function App() {
       } else {
         newLiveCells.add(idx)
       }
+      // console.log('newlivecells:', newLiveCells)
       setLiveCells(newLiveCells)
     }
   }
@@ -196,8 +207,9 @@ function App() {
     console.log("canvasSize:", canvasSize)
   }
 
-  function toggleWrap() {
+  function toggleWrap() { //fix so doesnt cause game to start running always
     pauseGame()
+    wasRunning = false
     const newWrap = !wrap
     setWrap(newWrap)
     // setField(createField(boardSize, tileSize, newWrap))
@@ -292,8 +304,12 @@ function App() {
 
           <div id='center-column' className="column">
             <Game
-              canvasSize={canvasSize}
+              running = {game? true: false}
               liveCells={liveCells}
+              canvasSize={canvasSize}
+              crdsToIdx={coordsToIdx}
+              drawCells={drawCells}
+              setLiveCells={setLiveCells}
               size={boardSize}
               toggleTile={toggleTile}
               boardSize={boardSize} />

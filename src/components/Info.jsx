@@ -3,7 +3,7 @@ import '../styles/info.css'
 
 export default function Info (props) {
 const wrap = props.wrap? "On": "Off"
-useEffect(()=> {
+useEffect(()=> { //needs fix so works when info screen not visible
   const span = document.getElementById('wrap-indicator')
   const canvas = document.getElementById('canvas-container')
   canvas.className = ''
