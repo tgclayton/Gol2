@@ -46,10 +46,6 @@ function App() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [speed])
 
-  // useEffect(() => {
-  //   console.log(liveCells)
-  // })
-
   useEffect(() => {
     canvasDraw(field, liveCells, tileSize)
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -256,6 +252,11 @@ function App() {
     }
   }
 
+ function changeLiveCells(cells) {
+   const newCells = new Set([...cells])
+    setLiveCells(newCells)
+  }
+
   return (
     <Router>
       <Redirect to={`/${leftPanelDisplay}/${rightPanelDisplay}`}></Redirect>
@@ -309,7 +310,7 @@ function App() {
               canvasSize={canvasSize}
               crdsToIdx={coordsToIdx}
               drawCells={drawCells}
-              setLiveCells={setLiveCells}
+              setLiveCells={changeLiveCells}
               size={boardSize}
               toggleTile={toggleTile}
               boardSize={boardSize}
@@ -327,7 +328,7 @@ function App() {
               </Route>
               <Route path={`/${leftPanelDisplay}/info`}>
                 <Info
-                  liveCells={liveCells.size}
+                  liveCells={liveCells}
                   size={boardSize}
                   gen={generation}
                   wrap={wrap}
