@@ -12,22 +12,24 @@ export default function Game(props) {
   useEffect(() => {
     window.addEventListener('keydown', (e) => handleKeyDown(e))
     window.addEventListener('keyup', (e) => handleKeyUp(e))
-    return ()=> {
+    return () => {
       window.removeEventListener('keydown', (e) => handleKeyDown(e))
       window.removeEventListener('keyup', (e) => handleKeyUp(e))
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  })
 
   function handleKeyDown(e) {
     if (e.key === 'Shift' && shiftDown === false) {
       shiftDown = true
+      // console.log(shiftDown)
     }
   }
 
   function handleKeyUp(e) {
     if (e.key === 'Shift') {
       shiftDown = false
+      // console.log(shiftDown)
     }
   }
 
@@ -44,23 +46,28 @@ export default function Game(props) {
   }
 
   function handleCanvasEvent(e, current) {
-    console.log(e)
-    e.stopPropagation()
-    e.preventDefault()
-    if (mouseDown && props.running === null) {
-      const canvas = document.getElementById('game-canvas')
-      const crds = getCursorPosition(e, canvas)
-      const cellIdx = props.crdsToIdx(crds, props.boardSize)
-      if (crds.x !== current.x || crds.y !== current.y) {
-        if (e.buttons === 1) {
-          currentCell = crds
-          workLiveCells.add(cellIdx)
-        } else {
-          currentCell = crds
-          workLiveCells.delete(cellIdx)
+    // console.log(e)
+    // e.stopPropagation()
+    // e.preventDefault()
+    // console.log(shiftDown)
+    if (shiftDown) {
+
+    } else {
+      if (mouseDown && props.running === null) {
+        const canvas = document.getElementById('game-canvas')
+        const crds = getCursorPosition(e, canvas)
+        const cellIdx = props.crdsToIdx(crds, props.boardSize)
+        if (crds.x !== current.x || crds.y !== current.y) {
+          if (e.buttons === 1) {
+            currentCell = crds
+            workLiveCells.add(cellIdx)
+          } else {
+            currentCell = crds
+            workLiveCells.delete(cellIdx)
+          }
         }
+        props.drawCells(workLiveCells)
       }
-      props.drawCells(workLiveCells)
     }
   }
 
@@ -69,10 +76,10 @@ export default function Game(props) {
   return (
     <div id="canvas-container">
       <canvas id="game-canvas" className="canvas" height={props.canvasSize} width={props.canvasSize}
-      onContextMenu={(e)=> {
-        e.stopPropagation()
-        e.preventDefault()
-      }}
+        onContextMenu={(e) => {
+          e.stopPropagation()
+          e.preventDefault()
+        }}
         onMouseDown={(e) => {
           mouseDown = true
           handleCanvasEvent(e, currentCell)
