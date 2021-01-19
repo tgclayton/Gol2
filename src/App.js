@@ -118,13 +118,14 @@ function App() {
 
  function toggleTile (crds) {
     let idx = coordsToIdx(crds, boardSize)
-    console.log('idx:', idx)
-    // idx = field[idx].canvasTileCrds
     if (!game) {
       const newLiveCells = new Set([...liveCells])
-      newLiveCells.add(idx)
+      if(newLiveCells.has(idx)){
+        newLiveCells.delete(idx)
+      } else {
+        newLiveCells.add(idx)
+      }
       setLiveCells(newLiveCells)
-      // canvasDraw(field, liveCells, tileSize)
     }
   }
 

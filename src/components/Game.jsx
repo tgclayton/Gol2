@@ -7,17 +7,17 @@ export default function Game(props) {
   function getCursorPosition(event, canvas) {
     const rect = canvas.getBoundingClientRect()
     const relTileSize = rect.height / props.boardSize
-    console.log(relTileSize)
+    // console.log(relTileSize)
     const x = event.clientX - rect.left
     const y = event.clientY - rect.top
-    console.log(`x:${x} y:${y}`)
+    // console.log(`x:${x} y:${y}`)
     return { x: Math.floor(x / relTileSize), y: Math.floor(y / relTileSize) }
 }
 
   function handleCanvasClick (e) {
     const canvas = document.getElementById('game-canvas')
     const crds = getCursorPosition(e, canvas)
-    console.log(crds)
+    // console.log(crds)
     props.toggleTile(crds)
   }
 
