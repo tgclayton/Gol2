@@ -21,9 +21,11 @@ export default function Game(props) {
       // console.log('relTileWidth:', relTileWidth)
       const x = e.clientX - rect.left
       const y = e.clientY - rect.top
+      const finX = x > 0? x: 0
+      const finY = y > 0? y: 0
       // console.log(`x:${x} y:${y}`)
       // console.log(`x-mod:${x / relTileWidth}`)
-      return { x: Math.floor(x / relTileWidth), y: Math.floor(y / relTileHeight) }
+      return { x: Math.floor(finX / relTileWidth), y: Math.floor(finY / relTileHeight) }
     }
 
     function handleCanvasEvent(e, current) {
