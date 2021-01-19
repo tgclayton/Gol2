@@ -305,7 +305,7 @@ function App() {
 
           <div id='center-column' className="column">
             <Game
-              running = {game? true: false}
+              running = {game}
               liveCells={liveCells}
               canvasSize={canvasSize}
               crdsToIdx={coordsToIdx}

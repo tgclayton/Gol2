@@ -7,6 +7,7 @@ export default function Game(props) {
   let currentCell = { x: null, y: null }
   let mouseDown = false
   let workLiveCells = props.liveCells || new Set([])
+  let running = props.running? true: false
 
   // useEffect(()=> {
   //   setCanvas(document.getElementById('game-canvas'))
@@ -29,7 +30,7 @@ export default function Game(props) {
     }
 
     function handleCanvasEvent(e, current) {
-      if (mouseDown && !props.running && e.buttons === 1) {
+      if (mouseDown && !running && e.buttons === 1) {
         const canvas = document.getElementById('game-canvas')
         const crds = getCursorPosition(e, canvas)
         const cellIdx = props.crdsToIdx(crds, props.boardSize)
@@ -57,9 +58,11 @@ export default function Game(props) {
             handleCanvasEvent(e, currentCell)
           }}
           onMouseUp={() => {
-            mouseDown = false
-            currentCell = { x: null, y: null }
-            props.setLiveCells(workLiveCells)
+            if(!running){
+              mouseDown = false
+              currentCell = { x: null, y: null }
+              props.setLiveCells(workLiveCells)
+            }
           }}
           onMouseLeave={() => {
             // mouseDown = false;
