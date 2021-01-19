@@ -11,11 +11,6 @@ import { createField, newMakeRandomMap, makeNextGen, coordsToIdx } from './funct
 import { canvasDraw, } from './functions/canvas.js'
 import { } from './functions/app.js'
 
-let game = null //holds the interval when game is running
-let workLiveCells = new Set([])
-let workGen = 0
-let wasRunning = false
-
 function App() {
   const [canvasSize, setCanvasSize] = useState(500) //Height/width of the game canvas
   const [boardSize, setboardSize] = useState(60) //Height/width in cells of the game board
@@ -27,8 +22,11 @@ function App() {
   const [rightPanelDisplay, setRightPanelDisplay] = useState('info')
   const [generation, setGeneration] = useState(0) //current generation displayed
   const [speed, setActiveSpeed] = useState(30) //speed at which new generations are created when game is running
-
- let shiftDown = false
+  const [game, setGame] = useState(null) //holds the interval when game is running
+  
+  let workLiveCells = new Set([])
+  let workGen = 0
+  let wasRunning = false
 
   //Controls highlighting of selected nav button
   useEffect(() => {
@@ -109,9 +107,6 @@ function App() {
         case 'e':
           toggleWrap()
           break
-         case 'Shift':
-           shiftDown = true
-           break 
         default: console.log(e.key)
       }
     }
@@ -190,7 +185,7 @@ function App() {
     if (game) {
       wasRunning = true
       clearInterval(game)
-      game = null
+      setGame(null)
       // console.log('game', game)
       setLiveCells(workLiveCells)
       setGeneration(workGen)
@@ -245,7 +240,7 @@ function App() {
         wasRunning = false
         workLiveCells = workCells ? workCells : new Set([...liveCells])
         workGen = generation
-        game = setInterval(() => runningNextGen(), speed)
+        setGame (setInterval(() => runningNextGen(), speed))
       }
     }
   }
@@ -303,7 +298,6 @@ function App() {
 
           <div id='center-column' className="column">
             <Game
-              shiftDown={shiftDown}
               running={game}
               liveCells={liveCells}
               canvasSize={canvasSize}

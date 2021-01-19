@@ -47,29 +47,25 @@ export default function Game(props) {
   }
 
   function getSelectedCells(first, final) {
-    // console.log(`first:${first.x},${first.y} final:${final.x},${final.y}`)
     let selected = new Set([])
     const minX = Math.min(first.x, final.x)
     const minY = Math.min(first.y, final.y)
     const maxX = Math.max(first.x, final.x)
     const maxY = Math.max(first.y, final.y)
-    // console.log(minX,maxX,minY,maxY)
     for (let i = minX; i <= maxX; i++) {
-      console.log(i)
       for (let n = minY; n <= maxY; n++) {
         const crds = {x:i, y:n}
-        // console.log('crds:', crds)
         selected.add(props.crdsToIdx(crds, props.boardSize))
       }
     }
-    console.log(selected)
+    // console.log(selected)
     return selected
   }
 
   function handleCanvasEvent(e, current) {
-    console.log(e)
-    // e.stopPropagation()
-    // e.preventDefault()
+    // console.log(e)
+    e.stopPropagation()
+    e.preventDefault()
     // console.log(shiftDown)
     const button = e.buttons
     const canvas = document.getElementById('game-canvas')
@@ -103,8 +99,10 @@ export default function Game(props) {
           e.preventDefault()
         }}
         onMouseDown={(e) => {
+          if (props.running === null) {
           mouseDown = true
           handleCanvasEvent(e, currentCell)
+          }
         }}
 
         onMouseUp={(e) => {
@@ -122,7 +120,9 @@ export default function Game(props) {
                 selectedCells.forEach(cell => workLiveCells.add(cell))
               }
             } else {
-              props.setLiveCells(workLiveCells)
+              const setCells = workLiveCells
+              workLiveCells = new Set([])
+              props.setLiveCells(setCells)
             }
           }
         }}
@@ -131,7 +131,9 @@ export default function Game(props) {
           currentCell = { x: null, y: null }
         }}
 
-        onMouseMove={(e) => handleCanvasEvent(e, currentCell)}
+        onMouseMove={(e) => {
+          if (props.running === null) handleCanvasEvent(e, currentCell)
+        }}
       ></canvas>
       <canvas id="grid-canvas" className="canvas" height={props.canvasSize} width={props.canvasSize}></canvas>
     </div>
