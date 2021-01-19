@@ -72,7 +72,6 @@ function App() {
           break
         case 'ArrowLeft':
         case 'a':
-          // this.showPrevGen()
           break
         case 'ArrowRight':
         case 'd':
@@ -103,11 +102,7 @@ function App() {
           changeSpeed(1)
           break
         case 'e':
-          console.log('e pressed')
           toggleWrap()
-          break
-        case 'p':
-          console.log(workLiveCells)
           break
         default: console.log(e)
       }
@@ -210,14 +205,14 @@ function App() {
   }
 
   function nextGen() { //generates next generation when game is not freely running
-    // console.log('nextGen occurred')
-    // console.log('livecells', liveCells)
-    const nextGen = makeNextGen(liveCells, boardSize, field, wrap)
-    setLiveCells(nextGen)
-    const newGen = generation + 1
-    setGeneration(newGen)
-    console.log('nextgen:', nextGen)
-    canvasDraw(field, liveCells, tileSize)
+    if (liveCells.size > 0){
+      const nextGen = makeNextGen(liveCells, boardSize, field, wrap)
+      setLiveCells(nextGen)
+      const newGen = generation + 1
+      setGeneration(newGen)
+      console.log('nextgen:', nextGen)
+      canvasDraw(field, liveCells, tileSize)
+    }
   }
 
   function runningNextGen() { //generates next generation while game is running freely
