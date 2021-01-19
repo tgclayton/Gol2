@@ -12,26 +12,18 @@ export default function Game(props) {
   //   setCanvas(document.getElementById('game-canvas'))
   // },[])
 
-  const debounce = (func, wait) => {
-    let timeout;
-  
-    return function executedFunction(...args) {
-      const later = () => {
-        clearTimeout(timeout);
-        func(...args);
-      };
-  
-      clearTimeout(timeout);
-      timeout = setTimeout(later, wait);
-    };
-  };
-
     function getCursorPosition(e, canvas) {
       const rect = canvas.getBoundingClientRect()
-      const relTileSize = rect.height / props.boardSize
+      const relTileHeight = rect.height / props.boardSize
+      const relTileWidth = rect.width / props.boardSize
+      // console.log('height:', rect.height)
+      // console.log('relTileHeight:', relTileHeight)
+      // console.log('relTileWidth:', relTileWidth)
       const x = e.clientX - rect.left
       const y = e.clientY - rect.top
-      return { x: Math.floor(x / relTileSize), y: Math.floor(y / relTileSize) }
+      // console.log(`x:${x} y:${y}`)
+      // console.log(`x-mod:${x / relTileWidth}`)
+      return { x: Math.floor(x / relTileWidth), y: Math.floor(y / relTileHeight) }
     }
 
     function handleCanvasEvent(e, current) {
@@ -39,8 +31,9 @@ export default function Game(props) {
         const canvas = document.getElementById('game-canvas')
         const crds = getCursorPosition(e, canvas)
         const cellIdx = props.crdsToIdx(crds, props.boardSize)
-        // console.log('crds:', crds)
-        // console.log('current:', current)
+        console.log('crds:', crds)
+        console.log('')
+        console.log('current:', current)
         if (crds.x !== current.x || crds.y !== current.y) {
           if (!workLiveCells.has(cellIdx)) {
             currentCell = crds
@@ -50,10 +43,8 @@ export default function Game(props) {
             workLiveCells.delete(cellIdx)
           }
         }
-        console.log(' ')
         props.drawCells(workLiveCells)
       }
-      // console.log(crds)
     }
 
     return (

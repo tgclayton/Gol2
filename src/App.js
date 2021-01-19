@@ -18,15 +18,15 @@ let wasRunning = false
 
 function App() {
   const [canvasSize, setCanvasSize] = useState(500) //Height/width of the game canvas
-  const [boardSize, setboardSize] = useState(30) //Height/width in cells of the game board
-  const [tileSize, setTileSize] = useState(500 / 30)
+  const [boardSize, setboardSize] = useState(60) //Height/width in cells of the game board
+  const [tileSize, setTileSize] = useState(canvasSize / boardSize)
   const [wrap, setWrap] = useState(true) //whether or not edge wrapping is on or not
   const [field, setField] = useState(createField(boardSize, tileSize, wrap)) //object containing data on cell coordinates and neighbours
   const [liveCells, setLiveCells] = useState(new Set([])) // array of index numbers of live cells
   const [leftPanelDisplay, setleftPanelDisplay] = useState('controls')
   const [rightPanelDisplay, setRightPanelDisplay] = useState('info')
   const [generation, setGeneration] = useState(0) //current generation displayed
-  const [speed, setActiveSpeed] = useState(300) //speed at which new generations are created when game is running
+  const [speed, setActiveSpeed] = useState(30) //speed at which new generations are created when game is running
 
 
   //Controls highlighting of selected nav button
@@ -167,7 +167,7 @@ function App() {
     // console.log(wasRunning)
     pauseGame()
     clearGame()
-    setTimeout(() => {
+    // setTimeout(() => {
       const randMap = newMakeRandomMap(boardSize)
       canvasDraw(field, randMap, tileSize)
       if (wasRunning) {
@@ -175,7 +175,7 @@ function App() {
       } else {
         setLiveCells(randMap)
       }
-    }, 50);
+    // }, 25);
   }
 
   function changeCanvasSize() {
@@ -312,7 +312,8 @@ function App() {
               setLiveCells={setLiveCells}
               size={boardSize}
               toggleTile={toggleTile}
-              boardSize={boardSize} />
+              boardSize={boardSize}
+              tileSize={tileSize} />
           </div>
 
           <div id='right-column' className="column">
