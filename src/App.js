@@ -61,7 +61,7 @@ function App() {
   function handleKey(e) {
     const focus = (document.activeElement === document.getElementById('size-change'))
     if (!focus) {
-      // console.log(e)
+      console.log('keydown handled')
       e.Handled = true;
       e.preventDefault()
       switch (e.key) {
@@ -205,14 +205,12 @@ function App() {
   }
 
   function nextGen() { //generates next generation when game is not freely running
-    if (liveCells.size > 0){
       const nextGen = makeNextGen(liveCells, boardSize, field, wrap)
       setLiveCells(nextGen)
       const newGen = generation + 1
       setGeneration(newGen)
-      console.log('nextgen:', nextGen)
+      // console.log('nextgen:', nextGen)
       canvasDraw(field, liveCells, tileSize)
-    }
   }
 
   function runningNextGen() { //generates next generation while game is running freely
@@ -233,7 +231,8 @@ function App() {
   function runGame(singleGen, workCells) {
     // console.log('game:', game)
     // console.log('game:', game)
-    if (!game) {
+
+    if (!game && liveCells.size > 0) {
       if (singleGen) {
         nextGen()
       } else {
@@ -253,7 +252,7 @@ function App() {
   return (
     <Router>
       <Redirect to={`/${leftPanelDisplay}/${rightPanelDisplay}`}></Redirect>
-      <div className="App" onKeyDown={(e) => handleKey(e)}>
+      <div className="App" onKeyDown={(e) => handleKey(e)} tabIndex="0">
         <header className="App-header">
           <h2>Game of Life</h2>
         </header>
