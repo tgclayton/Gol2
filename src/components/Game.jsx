@@ -9,16 +9,15 @@ export default function Game(props) {
   let running = props.running ? true : false
   let shiftDown = false
 
-  useEffect(() => {
-    console.log('added event to game')
-    window.addEventListener('keydown', (e) => handleKeyDown(e))
-    window.addEventListener('keyup', (e) => handleKeyUp(e))
-    return ()=> {
-      window.removeEventListener('keydown', (e) => handleKeyDown(e))
-      window.removeEventListener('keyup', (e) => handleKeyUp(e))
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  // useEffect(() => {
+  //   window.addEventListener('keydown', (e) => handleKeyDown(e))
+  //   window.addEventListener('keyup', (e) => handleKeyUp(e))
+  //   return ()=> {
+  //     window.removeEventListener('keydown', (e) => handleKeyDown(e))
+  //     window.removeEventListener('keyup', (e) => handleKeyUp(e))
+  //   }
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [])
 
   function handleKeyDown(e) {
     if (e.key === 'Shift' && shiftDown === false) {
@@ -37,19 +36,16 @@ export default function Game(props) {
     const rect = canvas.getBoundingClientRect()
     const relTileHeight = rect.height / props.boardSize
     const relTileWidth = rect.width / props.boardSize
-    // console.log('height:', rect.height)
-    // console.log('relTileHeight:', relTileHeight)
-    // console.log('relTileWidth:', relTileWidth)
     const x = e.clientX - rect.left
     const y = e.clientY - rect.top
     const finX = x > 0 ? x : 0
     const finY = y > 0 ? y : 0
-    // console.log(`x:${x} y:${y}`)
-    // console.log(`x-mod:${x / relTileWidth}`)
     return { x: Math.floor(finX / relTileWidth), y: Math.floor(finY / relTileHeight) }
   }
 
   function handleCanvasEvent(e, current) {
+    console.log(e)
+    e.stopPropagation()
     e.preventDefault()
     if (mouseDown && !running) {
       const canvas = document.getElementById('game-canvas')
@@ -73,12 +69,16 @@ export default function Game(props) {
   return (
     <div id="canvas-container">
       <canvas id="game-canvas" className="canvas" height={props.canvasSize} width={props.canvasSize}
+      onContextMenu={(e)=> {
+        e.stopPropagation()
+        e.preventDefault()
+      }}
         onMouseDown={(e) => {
           mouseDown = true
           handleCanvasEvent(e, currentCell)
         }}
 
-        onMouseUp={() => {
+        onMouseUp={(e) => {
           if (!running) {
             mouseDown = false
             currentCell = { x: null, y: null }

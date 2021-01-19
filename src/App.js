@@ -68,7 +68,7 @@ function App() {
     if (!focus) {
       // console.log('keydown handled')
       // e.Handled = true;
-      // e.preventDefault()
+      e.preventDefault()
       switch (e.key) {
         case ' ':
           game
