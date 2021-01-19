@@ -1,7 +1,13 @@
-export default function Instructions (props){
+export default function Instructions(props) {
   return (
-    <div id = 'control-panel'>
-      Instructions
-    </div>
+    <>
+      <div className='control-panel'>
+      <h5>Rules</h5>
+      </div>
+      <br></br>
+      <div className='control-panel'>
+      <h5>Keyboard Controls</h5>
+      </div>
+    </>
   )
 }

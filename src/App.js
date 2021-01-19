@@ -11,6 +11,10 @@ import { createField, newMakeRandomMap, makeNextGen, coordsToIdx } from './funct
 import { canvasDraw, } from './functions/canvas.js'
 import { } from './functions/app.js'
 
+let workLiveCells = new Set([])
+let workGen = 0
+let wasRunning = false
+
 function App() {
   const [canvasSize, setCanvasSize] = useState(500) //Height/width of the game canvas
   const [boardSize, setboardSize] = useState(60) //Height/width in cells of the game board
@@ -24,9 +28,6 @@ function App() {
   const [speed, setActiveSpeed] = useState(30) //speed at which new generations are created when game is running
   const [game, setGame] = useState(null) //holds the interval when game is running
   
-  let workLiveCells = new Set([])
-  let workGen = 0
-  let wasRunning = false
 
   //Controls highlighting of selected nav button
   useEffect(() => {
