@@ -28,7 +28,7 @@ function App() {
   const [generation, setGeneration] = useState(0) //current generation displayed
   const [speed, setActiveSpeed] = useState(300) //speed at which new generations are created when game is running
 
-  
+
   //Controls highlighting of selected nav button
   useEffect(() => {
     // console.log(`left: ${leftPanelDisplay} right: ${rightPanelDisplay}`)
@@ -39,31 +39,31 @@ function App() {
   }, [leftPanelDisplay, rightPanelDisplay])
 
   useEffect(() => {
-    if(wasRunning){
+    if (wasRunning) {
       wasRunning = false
       runGame()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  },[speed])
+  }, [speed])
 
   useEffect(() => {
-  canvasDraw(field,liveCells, tileSize)
+    canvasDraw(field, liveCells, tileSize)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  },[liveCells])
+  }, [liveCells])
 
   useEffect(() => {
-    if(wasRunning){
+    if (wasRunning) {
       runGame()
     }
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-  },[wrap])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [wrap])
 
-  useEffect(()=> {
+  useEffect(() => {
     window.addEventListener('keyup', e => handleKey(e))
-       // eslint-disable-next-line react-hooks/exhaustive-deps
-  },[])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
- function handleKey (e) {
+  function handleKey(e) {
     const focus = (document.activeElement === document.getElementById('size-change'))
     if (!focus) {
       // console.log(e)
@@ -71,7 +71,7 @@ function App() {
       e.preventDefault()
       switch (e.key) {
         case ' ':
-            game
+          game
             ? pauseGame()
             : runGame(true, liveCells)
           break
@@ -116,11 +116,11 @@ function App() {
     }
   }
 
- function toggleTile (crds) {
+  function toggleTile(crds) {
     let idx = coordsToIdx(crds, boardSize)
     if (!game) {
       const newLiveCells = new Set([...liveCells])
-      if(newLiveCells.has(idx)){
+      if (newLiveCells.has(idx)) {
         newLiveCells.delete(idx)
       } else {
         newLiveCells.add(idx)
@@ -138,14 +138,17 @@ function App() {
   }
 
   function clearGame() {
-    console.log('cleared')
+    // console.log('cleared')
     workLiveCells = []
     pauseGame()
     setLiveCells(new Set([]))
     setGeneration(0)
     workGen = 0
     canvasDraw(field, [], tileSize)
-    document.getElementById('gen-info').innerHTML = workGen
+    const genInfo = document.getElementById('gen-info')
+    if(genInfo){
+      genInfo.innerHTML = workGen
+    }
   }
 
   function makeRandomStart() {
@@ -157,7 +160,6 @@ function App() {
       const randMap = newMakeRandomMap(boardSize)
       canvasDraw(field, randMap, tileSize)
       if (wasRunning) {
-        console.log('got here')
         runGame(false, randMap)
       } else {
         setLiveCells(randMap)
@@ -182,7 +184,7 @@ function App() {
       wasRunning = true
       clearInterval(game)
       game = null
-      console.log('game', game)
+      // console.log('game', game)
       setLiveCells(workLiveCells)
       setGeneration(workGen)
     }
@@ -216,8 +218,14 @@ function App() {
     const nextGen = makeNextGen(workLiveCells, boardSize, field, wrap)
     workLiveCells = nextGen
     workGen++
-    document.getElementById('gen-info').innerHTML = workGen
-    document.getElementById('livecell-info').innerHTML = workLiveCells.size
+    const genInfo = document.getElementById('gen-info')
+    if (genInfo) {
+      genInfo.innerHTML = workGen
+    }
+    const cellInfo = document.getElementById('livecell-info')
+    if (cellInfo) {
+      cellInfo.innerHTML = workLiveCells.size
+    }
     canvasDraw(field, nextGen, tileSize)
   }
 
@@ -283,12 +291,12 @@ function App() {
           </div>
 
           <div id='center-column' className="column">
-            <Game 
-            canvasSize={canvasSize} 
-            liveCells={liveCells}
-            size={boardSize}
-            toggleTile={toggleTile}
-            boardSize={boardSize} />
+            <Game
+              canvasSize={canvasSize}
+              liveCells={liveCells}
+              size={boardSize}
+              toggleTile={toggleTile}
+              boardSize={boardSize} />
           </div>
 
           <div id='right-column' className="column">
