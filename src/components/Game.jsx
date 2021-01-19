@@ -30,12 +30,13 @@ export default function Game(props) {
     }
 
     function handleCanvasEvent(e, current) {
-      if (mouseDown && !running && e.buttons === 1) {
+      e.preventDefault()
+      if (mouseDown && !running) {
         const canvas = document.getElementById('game-canvas')
         const crds = getCursorPosition(e, canvas)
         const cellIdx = props.crdsToIdx(crds, props.boardSize)
         if (crds.x !== current.x || crds.y !== current.y) {
-          if (!workLiveCells.has(cellIdx)) {
+          if (e.buttons === 1){
             currentCell = crds
             workLiveCells.add(cellIdx)
           } else {
