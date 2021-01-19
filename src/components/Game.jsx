@@ -6,18 +6,18 @@ export default function Game(props) {
   let currentCell = { x: null, y: null }
   let mouseDown = false
   let workLiveCells = props.liveCells || new Set([])
-  let running = props.running ? true : false
+  // let running = props.running ? true : false
   let shiftDown = false
 
-  // useEffect(() => {
-  //   window.addEventListener('keydown', (e) => handleKeyDown(e))
-  //   window.addEventListener('keyup', (e) => handleKeyUp(e))
-  //   return ()=> {
-  //     window.removeEventListener('keydown', (e) => handleKeyDown(e))
-  //     window.removeEventListener('keyup', (e) => handleKeyUp(e))
-  //   }
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [])
+  useEffect(() => {
+    window.addEventListener('keydown', (e) => handleKeyDown(e))
+    window.addEventListener('keyup', (e) => handleKeyUp(e))
+    return ()=> {
+      window.removeEventListener('keydown', (e) => handleKeyDown(e))
+      window.removeEventListener('keyup', (e) => handleKeyUp(e))
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   function handleKeyDown(e) {
     if (e.key === 'Shift' && shiftDown === false) {
@@ -47,7 +47,7 @@ export default function Game(props) {
     console.log(e)
     e.stopPropagation()
     e.preventDefault()
-    if (mouseDown && !running) {
+    if (mouseDown && props.running === null) {
       const canvas = document.getElementById('game-canvas')
       const crds = getCursorPosition(e, canvas)
       const cellIdx = props.crdsToIdx(crds, props.boardSize)
@@ -79,7 +79,7 @@ export default function Game(props) {
         }}
 
         onMouseUp={(e) => {
-          if (!running) {
+          if (props.running === null) {
             mouseDown = false
             currentCell = { x: null, y: null }
             props.setLiveCells(workLiveCells)
