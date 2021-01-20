@@ -23,6 +23,7 @@ const cellTruthTable = {
   }
 }
 
+//Creats an object containing
 export const createField = (size, tileSize) => {
   const field = {}
   // const tileSize = 2
@@ -87,44 +88,6 @@ const newLiveIdxs = new Set([])
     }
   }
   return newLiveIdxs
-}
-
-// new next generation function using loop instead of map
-export function nextGeneration(map, size, checkSet, field) {
-  let liveCount = 0
-  let newMap = []
-  new Array(size * size).fill(0)
-  let changedIdx = []
-  // let newCheckSet = new Set()
-  let liveCellIdxs = []
-  const length = map.length
-  for (let i = 0; i < length; i++) {
-    const oldVal = map[i]
-    const n = field[i].wrappedNeighbours
-    const ln = findLiveNeighbours(map, n)
-    const newVal = cellTruthTable[oldVal][ln]
-    newMap[i] = newVal
-    if (oldVal !== newVal) {
-      changedIdx.push(i)
-    }
-    if (newVal === 1) {
-      liveCellIdxs.push(i)
-      liveCount++
-    }
-  }
-  // for (let idx of checkSet) {
-  // console.log(` idx: ${idx}`)
-  // console.log(`oldval: ${oldVal}`)
-  // console.log(`n: ${n}`)
-  // console.log(`ln: ${ln}`)
-  // console.log(`newVal: ${newVal}`)
-  // console.log(` `)
-  // newCheckSet.add(idx)
-  // n.forEach(n => checkSet.add(n))
-  // newCheckSet = new Set([...newCheckSet, ...n])
-  // }
-  // console.log(newCheckSet)
-  return { arr: newMap, live: liveCount, changed: changedIdx, liveCells: liveCellIdxs }
 }
 
 export function idxToCoords(idx, size) {
@@ -197,14 +160,3 @@ export function findLiveNeighbours(liveCells, neighbours) {
   })
   return ln
 }
-
-// Old version
-// export function findLiveNeighbours(field, neighbours) {
-//   let ln = 0
-//   neighbours.forEach(idx => {
-//     if (field[idx] === 1) {
-//       ln++
-//     }
-//   })
-//   return ln
-// }

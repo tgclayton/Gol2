@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react'
-import { canvasDraw, } from '../functions/canvas.js'
+import React, { useEffect } from 'react'
+// import { canvasDraw, } from '../functions/canvas.js'
 import '../styles/game.css'
 
 export default function Game(props) {
