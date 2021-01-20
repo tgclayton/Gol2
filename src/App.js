@@ -17,7 +17,7 @@ let wasRunning = false
 
 function App() {
   const [canvasSize, setCanvasSize] = useState(500) //Height/width of the game canvas
-  const [boardSize, setboardSize] = useState(60) //Height/width in cells of the game board
+  const [boardSize, setboardSize] = useState(60) //Height/width of cells on the game board
   const [tileSize, setTileSize] = useState(canvasSize / boardSize)
   const [wrap, setWrap] = useState(true) //whether or not edge wrapping is on or not
   const [field, setField] = useState(createField(boardSize, tileSize, wrap)) //object containing data on cell coordinates and neighbours

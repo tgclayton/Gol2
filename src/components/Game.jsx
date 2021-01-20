@@ -80,7 +80,7 @@ export default function Game(props) {
           }
         } else if (button === 1) { //left mouse adds cells
           workLiveCells.add(cellIdx)
-        } else { //right mouse removes cells
+        } else if (button === 2){ //right mouse removes cells
           workLiveCells.delete(cellIdx)
         }
 
@@ -111,12 +111,11 @@ export default function Game(props) {
               const selectedCells = getSelectedCells(firstCell, currentCell) || new Set([])
               firstCell = null
               mouseDown = false
+              // console.log(currentCell)
               currentCell = { x: null, y: null }
               if (e.button === 2) {
-                console.log('rightmouse')
                 selectedCells.forEach(cell => workLiveCells.delete(cell))
               } else {
-                console.log('leftmouse')
                 selectedCells.forEach(cell => workLiveCells.add(cell))
               }
             } else {
@@ -129,6 +128,7 @@ export default function Game(props) {
 
         onMouseLeave={() => {
           currentCell = { x: null, y: null }
+          mouseDown = false
         }}
 
         onMouseMove={(e) => {
