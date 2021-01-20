@@ -136,3 +136,17 @@ min-width: 250px;
   color: ivory;
   background-color: rgb(112, 112, 82) !important;
 }
+
+.instructions p {
+  font-size: small;
+  margin: 0;
+}
+
+.instructions span {
+  font-weight: 700;
+}
+
+.instructions h5 {
+  font-size: larger;
+  margin: 0 0 .5em;
+}
