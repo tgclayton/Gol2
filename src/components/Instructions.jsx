@@ -4,7 +4,7 @@ export default function Instructions(props) {
       <div className='control-panel instructions' id='game-instructions' style={{
         letterSpacing:'-0.001em'
       }} >
-        {/* <h5 className={'panel-title'}>Rules</h5> */}
+        <h5 className={'panel-title'}>Instructions</h5>
         <p>Conway's Game of Life consists of 2D game board composed of square cells. Each cell can
         exist in one of two states, alive(green) and dead(grey). Once the starting state of the
         board is determined the game proceeds in a series of generations, during which cells may

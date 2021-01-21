@@ -42,6 +42,7 @@ export default function Controls(props) {
   return (
     <>
       <div id='main-control-panel' className='control-panel'>
+      <h5 className={'panel-title'}>Controls</h5>
         <button onClick={() => props.makeRandomStart()} >Random Start</button>
         <button onClick={() => props.clearGame()} >Clear Game</button>
         <br />
@@ -57,7 +58,8 @@ export default function Controls(props) {
         <button onClick={() => props.wrap.toggleWrap(!props.wrap.wrap)}>Toggle Edge Wrapping</button>
       </div>
       <div id='speed-control' className = 'control-panel column'>
-        <h5>Speed Control</h5>
+      <h5 className={'panel-title'}>Speed Control</h5>
+        {/* <h5>Speed Control</h5> */}
         <div className='flex-row'>
           <p>Slower</p>
           <div className='speed-button' id={`speed-button-1`} onClick={() => props.changeSpeed(600)}>1</div>
