@@ -1,3 +1,4 @@
+
 import './App.css';
 import Game from './components/Game'
 import TestControls from './components/TestControls'
@@ -47,6 +48,7 @@ function App() {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [speed])
+
 
   useEffect(() => {
     canvasDraw(field, liveCells, tileSize)
