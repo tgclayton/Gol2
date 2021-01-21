@@ -24,6 +24,7 @@ export default function Info(props) {
   return (
     <>
       <div id="info-panel" className="control-panel">
+        <h5 className='panel-title'>Game Info</h5>
         <p >Live Cells: <span id='livecell-info'>{props.liveCells.size}</span></p>
         <p >Generation: <span id='gen-info'>{props.gen}</span></p>
         <p>Field Size: {props.size} x {props.size}</p>
@@ -31,7 +32,7 @@ export default function Info(props) {
         <p>Speed: <span id='speed-indicator'>{speedDisp}</span></p>
       </div>
       <div className='control-panel instructions' id = "key-control-instructions" style={{marginTop: '1em'}}>
-        <h5>Keyboard Controls</h5>
+        <h5 className='panel-title'>Keyboard Controls</h5>
         <p><span>W/Up Arrow:</span> Create a new random game</p>
         <p><span>S/Down Arrow:</span> Clear the game board</p>
         <p><span>D/Left Arrow:</span> Advance the game a single generation</p>

@@ -27,7 +27,7 @@ function App() {
   const [generation, setGeneration] = useState(0) //current generation displayed
   const [speed, setActiveSpeed] = useState(30) //speed at which new generations are created when game is running
   const [game, setGame] = useState(null) //holds the interval when game is running
-  
+
 
   //Controls highlighting of selected nav button
   useEffect(() => {
@@ -60,7 +60,7 @@ function App() {
   }, [wrap])
 
   function handleKey(e) {
-    if (e.key ==="Shift"){
+    if (e.key === "Shift") {
       return
     }
     const focus = (document.activeElement === document.getElementById('size-change'))
@@ -201,7 +201,7 @@ function App() {
 
   function toggleWrap() { //fix so doesnt cause game to start running always
     wasRunning = false
-    if(game){
+    if (game) {
       pauseGame()
     }
     const newWrap = !wrap
@@ -210,12 +210,12 @@ function App() {
   }
 
   function nextGen() { //generates next generation when game is not freely running
-      const nextGen = makeNextGen(liveCells, boardSize, field, wrap)
-      setLiveCells(nextGen)
-      const newGen = generation + 1
-      setGeneration(newGen)
-      // console.log('nextgen:', nextGen)
-      canvasDraw(field, liveCells, tileSize)
+    const nextGen = makeNextGen(liveCells, boardSize, field, wrap)
+    setLiveCells(nextGen)
+    const newGen = generation + 1
+    setGeneration(newGen)
+    // console.log('nextgen:', nextGen)
+    canvasDraw(field, liveCells, tileSize)
   }
 
   function runningNextGen() { //generates next generation while game is running freely
@@ -241,7 +241,7 @@ function App() {
         wasRunning = false
         workLiveCells = workCells ? workCells : new Set([...liveCells])
         workGen = generation
-        setGame (setInterval(() => runningNextGen(), speed))
+        setGame(setInterval(() => runningNextGen(), speed))
       }
     }
   }
@@ -250,21 +250,24 @@ function App() {
     const newCells = new Set([...cells])
     setLiveCells(newCells)
   }
-// 
+  // 
   return (
     <Router>
       <Redirect to={`/${leftPanelDisplay}/${rightPanelDisplay}`}></Redirect>
-      <div className="App"  tabIndex={0} onKeyDown={(e) => handleKey(e)}>
+      <div className="App" tabIndex={0} onKeyDown={(e) => handleKey(e)}>
         <header className="App-header">
           <h2>Game of Life</h2>
         </header>
         <div className="app-body">
           <div id='left-column' className="column">
-            <div id="left-panel-nav" className="panel-nav">
-              <Link to={`/controls/${rightPanelDisplay}`} replace id='nav-button-controls' className='nav-button' onClick={() => setleftPanelDisplay('controls')}>Controls</Link>
-              <Link to={`/instructions/${rightPanelDisplay}`} replace id='nav-button-instructions' className='nav-button' onClick={() => setleftPanelDisplay('instructions')}>Instructions</Link>
-              {/* <Link to={`/test-controls/${rightPanelDisplay}`} replace id='nav-button-test-controls' className='nav-button' onClick={() => setleftPanelDisplay('test-controls')}>Test Controls</Link> */}
+            <div className={'col-nav flex-row'}>
+              <div id="left-panel-nav" className="panel-nav">
+                <Link to={`/controls/${rightPanelDisplay}`} replace id='nav-button-controls' className='nav-button' onClick={() => setleftPanelDisplay('controls')}>Controls</Link>
+                <Link to={`/instructions/${rightPanelDisplay}`} replace id='nav-button-instructions' className='nav-button' onClick={() => setleftPanelDisplay('instructions')}>Instructions</Link>
+                {/* <Link to={`/test-controls/${rightPanelDisplay}`} replace id='nav-button-test-controls' className='nav-button' onClick={() => setleftPanelDisplay('test-controls')}>Test Controls</Link> */}
+              </div>
             </div>
+            <div className={'col-body column'}>
             <Switch>
               <Route path="/instructions">
                 <Instructions />
@@ -295,9 +298,10 @@ function App() {
                 />
               </Route>
             </Switch>
+            </div>
           </div>
 
-          <div id='center-column' className="column">
+          <div id='center-column' className="column" style={{ justifyContent: 'center' }}>
             <Game
               running={game}
               liveCells={liveCells}
@@ -312,24 +316,27 @@ function App() {
           </div>
 
           <div id='right-column' className="column">
-            <div id="right-panel-nav" className="panel-nav">
-              <Link to={`/${leftPanelDisplay}/saves`} replace id='nav-button-saves' className='nav-button' onClick={() => setRightPanelDisplay('saves')}>Saves</Link>
-              <Link to={`/${leftPanelDisplay}/info`} replace id='nav-button-info' className='nav-button' onClick={() => setRightPanelDisplay('info')}>Info</Link>
+            <div className={'col-nav flex-row'}>
+              <div id="right-panel-nav" className="panel-nav">
+                <Link to={`/${leftPanelDisplay}/saves`} replace id='nav-button-saves' className='nav-button' onClick={() => setRightPanelDisplay('saves')}>Saves</Link>
+                <Link to={`/${leftPanelDisplay}/info`} replace id='nav-button-info' className='nav-button' onClick={() => setRightPanelDisplay('info')}>Info</Link>
+              </div>
             </div>
-            {/* <Stats/> */}
-            <Switch>
-              <Route path={`/${leftPanelDisplay}/saves`}>
-              </Route>
-              <Route path={`/${leftPanelDisplay}/info`}>
-                <Info
-                  liveCells={liveCells}
-                  size={boardSize}
-                  gen={generation}
-                  wrap={wrap}
-                  speed={speed}
-                />
-              </Route>
-            </Switch>
+            <div className={'col-body column'}>
+              <Switch>
+                <Route path={`/${leftPanelDisplay}/saves`}>
+                </Route>
+                <Route path={`/${leftPanelDisplay}/info`}>
+                  <Info
+                    liveCells={liveCells}
+                    size={boardSize}
+                    gen={generation}
+                    wrap={wrap}
+                    speed={speed}
+                  />
+                </Route>
+              </Switch>
+            </div>
           </div>
 
         </div>
