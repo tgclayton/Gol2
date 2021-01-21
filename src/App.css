@@ -90,7 +90,7 @@ min-width: 250px;
 }
 
 .control-panel{
-  width: 70%;
+  width: 80%;
   min-width: 220px;
   border: 3pt solid black;
   padding: 1em ;
@@ -168,4 +168,9 @@ min-width: 250px;
 
 .col-nav {
   height: 15%;
+}
+
+#game-instructions p {
+  font-size: 9.5pt ;
+  text-align: justify;
 }
