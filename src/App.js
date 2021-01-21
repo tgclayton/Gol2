@@ -4,6 +4,7 @@ import TestControls from './components/TestControls'
 import Controls from './components/Controls'
 import Instructions from './components/Instructions'
 import Info from './components/Info'
+import Saves from './components/Saves'
 
 import React, { useState, useEffect } from "react"
 import { Route, BrowserRouter as Router, Switch, Link, Redirect } from 'react-router-dom'
@@ -27,6 +28,7 @@ function App() {
   const [generation, setGeneration] = useState(0) //current generation displayed
   const [speed, setActiveSpeed] = useState(30) //speed at which new generations are created when game is running
   const [game, setGame] = useState(null) //holds the interval when game is running
+  const [initialState, setInitialState]= useState(null) //holds initial state of a game run for save purposes
 
 
   //Controls highlighting of selected nav button
@@ -333,6 +335,7 @@ function App() {
             <div className={'col-body column'}>
               <Switch>
                 <Route path={`/${leftPanelDisplay}/saves`}>
+                  <Saves/>
                 </Route>
                 <Route path={`/${leftPanelDisplay}/info`}>
                   <Info
