@@ -51,6 +51,14 @@ function App() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [liveCells])
 
+  useEffect(() => { //needs fix so works when info screen not visible
+    const canvas = document.getElementById('canvas-container')
+    canvas.className = ''
+    if (!wrap) {
+      canvas.classList.add('no-wrap-canvas')
+    }
+  }, [wrap])
+
   useEffect(() => {
     if (wasRunning) {
       wasRunning = true
