@@ -1,7 +1,8 @@
 require('dotenv').config()
 
+
 const MongoClient = require('mongodb').MongoClient;
-const uri = 'process.env.REACT_APP_MONGO_PASSWORD';
+const uri = `mongodb+srv://gol2-user:${process.env.REACT_APP_MONGO_PASSWORD}@toms-to-do.zkt6p.mongodb.net/Saves?retryWrites=true&w=majority`;
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 client
     .connect()
