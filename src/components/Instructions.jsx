@@ -1,20 +1,20 @@
 export default function Instructions(props) {
   return (
     <>
-      <div className='control-panel instructions'>
+      <div className='control-panel instructions' >
       <h5>Rules</h5>
+        <p>Conway's Game of Life consists of 2d game board composed of square cells.</p>
+        <p>While the game is not running the game cells may be painted on or removed
+           from the board by clicking and dragging with the mouse. The left mouse button will turn
+           cells live and the right button will turn them dead. Holding the shift key while dragging
+           will cause a rectangular block of cells to be affected. </p>
+           <p>While edge wrapping is on cells on the edges of the map may count cells on the opposite
+             edge as their neighbours, all cells on the board have the same number of neighbours. 
+             While it is off the board edge act as a hard barrier and cells on the edge have less neighbours
+             than other cells.
+           </p>
       </div>
-      <br></br>
-      <div className='control-panel instructions'>
-      <h5>Keyboard Controls</h5>
-      <p><span>W/Up Arrow:</span> Create a new random game</p>
-      <p><span>S/Down Arrow:</span> Clear the game board</p>
-      <p><span>D/Left Arrow:</span> Advance the game a single generation</p>
-      <p><span>Space:</span> Starts or pauses the game running</p>
-      <p><span>Numbers 1-5:</span> Set game speed</p>
-      <p><span>E:</span> Toggle edge wrapping</p>
-      <p></p>
-      </div>
+
     </>
   )
 }

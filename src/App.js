@@ -326,6 +326,7 @@ function App() {
                   size={boardSize}
                   gen={generation}
                   wrap={wrap}
+                  speed={speed}
                 />
               </Route>
             </Switch>
