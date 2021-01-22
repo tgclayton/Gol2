@@ -1,6 +1,5 @@
 require('dotenv').config()
 
-
 const MongoClient = require('mongodb').MongoClient;
 const uri = `mongodb+srv://gol2-user:${process.env.REACT_APP_MONGO_PASSWORD}@toms-to-do.zkt6p.mongodb.net/Saves?retryWrites=true&w=majority`;
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
@@ -27,16 +26,10 @@ async function addSave(save) {
     }
 }
 
-async function getSaves(){
+async function getSaves() {
     const db = client.db("Gol2")
-    try {
-        const col = db.collection("saves")
-        col.find({})
-        .then (res => {
-            return res
-        })
-    } catch (err){
-        console.log(err)
-    }
+    const col = db.collection("Saves")
+    const saves = await col.find({}).toArray()
+    return saves
 }
 

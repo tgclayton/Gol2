@@ -4,13 +4,14 @@ export default function Saves (props) {
 
   async function fetchSaves(){
     const saves = await getSaves()
-    console.log(saves)
+    return saves
   }
 
   return (
-    <div>
-      Saves
-      <button>Get Saves</button>
+    <div className='control-panel'>
+      <button>Save Current Board</button>
+      <button>Save Initial Generation</button>
+      <button onClick={()=> {fetchSaves()}}>Get Saves</button>
     </div>
   )
 }

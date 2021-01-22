@@ -31,6 +31,7 @@ function App() {
   const [game, setGame] = useState(null) //holds the interval when game is running
   const [initialState, setInitialState]= useState(null) //holds initial state of a game run for save purposes
 
+  console.log("Game Launched")
 
   //Controls highlighting of selected nav button
   useEffect(() => {
