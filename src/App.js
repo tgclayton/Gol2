@@ -29,7 +29,7 @@ function App() {
   const [generation, setGeneration] = useState(0) //current generation displayed
   const [speed, setActiveSpeed] = useState(30) //speed at which new generations are created when game is running
   const [game, setGame] = useState(null) //holds the interval when game is running
-  const [initialState, setInitialState]= useState(null) //holds initial state of a game run for save purposes
+  const [storedCells, setStoredCells] = useState(null) //stores current livecell positions
 
   console.log("Game Launched")
 
@@ -281,36 +281,36 @@ function App() {
               </div>
             </div>
             <div className={'col-body column'}>
-            <Switch>
-              <Route path="/instructions">
-                <Instructions />
-              </Route>
-              <Route path="/test-controls">
-                <TestControls
-                  makeRandomStart={makeRandomStart}
-                  boardSize={boardSize}
-                  changeCanvasSize={changeCanvasSize}
-                  size={boardSize}
-                  canvasSize={canvasSize}
-                  checkState={checkState}
-                  liveCells={liveCells}
-                />
-              </Route>
-              <Route path="/controls">
-                <Controls
-                  tileSize={tileSize}
-                  makeRandomStart={makeRandomStart}
-                  clearGame={clearGame}
-                  changeSize={changeSize}
-                  boardSize={boardSize}
-                  wrap={{ wrap, toggleWrap }}
-                  speed={speed}
-                  changeSpeed={changeSpeed}
-                  runGame={runGame}
-                  pauseGame={pauseGame}
-                />
-              </Route>
-            </Switch>
+              <Switch>
+                <Route path="/instructions">
+                  <Instructions />
+                </Route>
+                <Route path="/test-controls">
+                  <TestControls
+                    makeRandomStart={makeRandomStart}
+                    boardSize={boardSize}
+                    changeCanvasSize={changeCanvasSize}
+                    size={boardSize}
+                    canvasSize={canvasSize}
+                    checkState={checkState}
+                    liveCells={liveCells}
+                  />
+                </Route>
+                <Route path="/controls">
+                  <Controls
+                    tileSize={tileSize}
+                    makeRandomStart={makeRandomStart}
+                    clearGame={clearGame}
+                    changeSize={changeSize}
+                    boardSize={boardSize}
+                    wrap={{ wrap, toggleWrap }}
+                    speed={speed}
+                    changeSpeed={changeSpeed}
+                    runGame={runGame}
+                    pauseGame={pauseGame}
+                  />
+                </Route>
+              </Switch>
             </div>
           </div>
 
@@ -338,7 +338,11 @@ function App() {
             <div className={'col-body column'}>
               <Switch>
                 <Route path={`/${leftPanelDisplay}/saves`}>
-                  <Saves/>
+                  <Saves
+                    liveCells={liveCells}
+                    boardSize={boardSize}
+                    storedCells={storedCells}
+                  />
                 </Route>
                 <Route path={`/${leftPanelDisplay}/info`}>
                   <Info
