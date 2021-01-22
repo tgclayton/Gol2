@@ -12,17 +12,31 @@ client
     })
 
 module.exports = {
+    addSave,
+    getSaves
 }
 
-// async function addUser(user) {
-//     const db = client.db('To-do-data')
-//     try {
-//         const col = db.collection("users")
-//         await col.insertOne(user)
-//         // console.log('user added:', user)
-//     }
-//     catch (err) {
-//         console.log(err.stack);
-//     }
-// }
+async function addSave(save) {
+    const db = client.db('To-do-data')
+    try {
+        const col = db.collection("saves")
+        await col.insertOne(save)
+    }
+    catch (err) {
+        console.log(err.stack);
+    }
+}
+
+async function getSaves(){
+    const db = client.db("Gol2")
+    try {
+        const col = db.collection("saves")
+        col.find({})
+        .then (res => {
+            return res
+        })
+    } catch (err){
+        console.log(err)
+    }
+}
 
