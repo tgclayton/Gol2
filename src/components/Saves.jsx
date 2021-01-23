@@ -14,7 +14,7 @@ export default function Saves(props) {
 
   async function save(cells, title, desc) {
     const save = {
-      cells: cells,
+      cells: Array.from(cells),
       minSize: props.boardSize,
       title: title,
       desc: desc
