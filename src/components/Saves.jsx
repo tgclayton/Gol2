@@ -31,6 +31,7 @@ export default function Saves(props) {
     <>
 
       <div id='save-panel' className='control-panel'>
+        <h3>Save Game</h3>
         {/* <button>Save Initial Generation</button> */}
         {/* <button onClick={() => { fetchSaves() }}>Get Saves</button> */}
         {/* <br/><br/> */}
@@ -38,7 +39,7 @@ export default function Saves(props) {
         <p>Save Title</p>
         <input id='save-desc' type='text' ></input>
         <p>Save Description</p>
-        <button onClick={() => { save(props.liveCells) }} >Save Current Generation</button>
+        <button onClick={() => { save(props.liveCells) }} style={{marginTop:'1em'}}>Save Current Generation</button>
       </div>
 
       <div className='control-panel'>

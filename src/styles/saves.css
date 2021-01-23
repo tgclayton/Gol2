@@ -1,4 +1,8 @@
 #save-panel p{
-  margin:0 0 1em;
+  margin:0 0 .5em;
   font-size: smaller;
+}
+
+#save-panel h3{
+margin: 0 0 1em;
 }
