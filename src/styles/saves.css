@@ -3,6 +3,23 @@
   font-size: smaller;
 }
 
-#save-panel h3{
+.save-panel-title{
 margin: 0 0 1em;
 }
+
+#saves-selector {
+  overflow-y: scroll;
+  margin: 1em 0;
+}
+
+.save-p {
+  font-size: smaller;
+  margin: 0;
+}
+
+.save-box {
+border: 2pt solid black;
+padding: .2em;
+margin-bottom: 1em;
+}
+

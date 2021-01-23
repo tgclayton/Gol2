@@ -337,7 +337,7 @@ function App() {
                 <Link to={`/${leftPanelDisplay}/info`} replace id='nav-button-info' className='nav-button' onClick={() => setRightPanelDisplay('info')}>Info</Link>
               </div>
             </div>
-            <div className={'col-body column'}>
+            <div className={'col-body column'} style={{justifyContent:'space-around'}}>
               <Switch>
                 <Route path={`/${leftPanelDisplay}/saves`}>
                   <Saves

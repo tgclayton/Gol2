@@ -35,8 +35,8 @@ export default function Saves(props) {
   return (
     <>
 
-      <div id='save-panel' className='control-panel'>
-        <h3>Save Game</h3>
+      <div id='save-panel' className='control-panel '>
+        <h3 className='save-panel-title'>Save Game</h3>
         {/* <button>Save Initial Generation</button> */}
         {/* <button onClick={() => { fetchSaves() }}>Get Saves</button> */}
         {/* <br/><br/> */}
@@ -48,11 +48,17 @@ export default function Saves(props) {
         style={{marginTop:'1em'}}>Save Current Generation</button>
       </div>
 
-      <div className='control-panel'>
+      <div id = 'saves-selector' className='control-panel'>
+      <h3 className='save-panel-title'>Saves</h3>
         {saves[0] &&
           saves.map(save => {
             return (
-              <div>Test</div>
+              <div key ={`save-${save.id}`} className = 'save-box'>
+                <h5 style={{margin:'0 0 .5em',}}>{save.title}</h5>
+                <p className='save-p'>{save.desc}</p>
+                <p className='save-p'>Required Size: {save.minSize}x{save.minSize}</p>
+                <button onCLick = {() => null}>Load Save</button>
+              </div>
             )
           })
         }
