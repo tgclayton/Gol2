@@ -76,7 +76,10 @@ function App() {
     if (e.key === "Shift") {
       return
     }
-    const focus = (document.activeElement === document.getElementById('size-change'))
+    const focus = 
+    (document.activeElement === document.getElementById('size-change')) ||
+    (document.activeElement === document.getElementById('save-title')) ||
+    (document.activeElement === document.getElementById('save-desc'))
     if (!focus) {
       // console.log('keydown handled')
       // e.Handled = true;
