@@ -212,14 +212,13 @@ function App() {
     console.log("canvasSize:", canvasSize)
   }
 
-  function toggleWrap() { //fix so doesnt cause game to start running always
+  function toggleWrap() {
     wasRunning = false
     if (game) {
       pauseGame()
     }
     const newWrap = !wrap
     setWrap(newWrap)
-    // setField(createField(boardSize, tileSize, newWrap))
   }
 
   function nextGen() { //generates next generation when game is not freely running
@@ -277,7 +276,7 @@ function App() {
               <div id="left-panel-nav" className="panel-nav">
                 <Link to={`/controls/${rightPanelDisplay}`} replace id='nav-button-controls' className='nav-button' onClick={() => setleftPanelDisplay('controls')}>Controls</Link>
                 <Link to={`/instructions/${rightPanelDisplay}`} replace id='nav-button-instructions' className='nav-button' onClick={() => setleftPanelDisplay('instructions')}>Instructions</Link>
-                {/* <Link to={`/test-controls/${rightPanelDisplay}`} replace id='nav-button-test-controls' className='nav-button' onClick={() => setleftPanelDisplay('test-controls')}>Test Controls</Link> */}
+                {/* <Link to={`/testntrols/${rightPanelDisplay}`} replace id='nav-button-test-controls' className='nav-button' onClick={() => setleftPanelDisplay('test-controls')}>Test Controls</Link> */}
               </div>
             </div>
             <div className={'col-body column'}>

@@ -1,6 +1,8 @@
 import { getSaves, saveGame } from '../api'
 import {useState, useEffect} from 'react'
 
+import '../styles/saves.css'
+
 export default function Saves(props) {
   const [refresh, setRefresh] = useState(false)
   const [saves, setSaves] = useState(fetchSaves())
@@ -28,10 +30,15 @@ export default function Saves(props) {
   return (
     <>
 
-      <div className='control-panel'>
-        <button onClick={() => { save(props.liveCells) }} >Save Current Board</button>
-        <button>Save Initial Generation</button>
-        <button onClick={() => { fetchSaves() }}>Get Saves</button>
+      <div id='save-panel' className='control-panel'>
+        {/* <button>Save Initial Generation</button> */}
+        {/* <button onClick={() => { fetchSaves() }}>Get Saves</button> */}
+        {/* <br/><br/> */}
+        <input id='save-title' type='text' ></input>
+        <p>Save Title</p>
+        <input id='save-desc' type='text' ></input>
+        <p>Save Description</p>
+        <button onClick={() => { save(props.liveCells) }} >Save Current Generation</button>
       </div>
 
       <div className='control-panel'>
