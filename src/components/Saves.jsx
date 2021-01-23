@@ -12,14 +12,20 @@ export default function Saves(props) {
   }, [refresh])
 
   async function save(cells, title, desc) {
-    const save = {
-      cells: Array.from(cells),
-      minSize: props.boardSize,
-      title: title,
-      desc: desc
+    let valid = true
+    saves.forEach(save => {
+      if (save.title === title) valid = false
+    })
+    if (valid){
+      const save = {
+        cells: Array.from(cells),
+        minSize: props.boardSize,
+        title: title,
+        desc: desc
+      }
+      await saveGame(save)
+      setRefresh(!refresh)
     }
-    console.log(save)
-    await saveGame(save)
   }
   
   async function fetchSaves() {
@@ -41,9 +47,9 @@ export default function Saves(props) {
         {/* <button onClick={() => { fetchSaves() }}>Get Saves</button> */}
         {/* <br/><br/> */}
         <input id='save-title' type='text' ></input>
-        <p>Save Title</p>
+        <p>Title</p>
         <input id='save-desc' type='text' ></input>
-        <p>Save Description</p>
+        <p>Description</p>
         <button onClick={() => { save(props.liveCells, document.getElementById('save-title').value, document.getElementById('save-desc').value) }}
           style={{ marginTop: '1em' }}>Save Current Generation</button>
       </div>
@@ -60,8 +66,8 @@ export default function Saves(props) {
                   <h5 style={{ margin: '0 0 .5em', }}>{save.title}</h5>
                   <p className='save-p'>{save.desc}</p>
                   <p className='save-p'>Required Size: {save.minSize}x{save.minSize}</p>
-                  <button onClick={() => props.loadSave(save.cells)}>Load Save</button>
-                  <button onClick={() => deleteSave(save._id)}>Delete Save</button>
+                  <button onClick={() => props.loadSave(save.cells)}>Load</button>
+                  <button onClick={() => deleteSave(save.title)}>Delete</button>
                 </div>
               )
             })

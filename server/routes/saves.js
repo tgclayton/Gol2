@@ -30,4 +30,13 @@ router.post('/saves', function (req, res) {
   })
 })
 
+router.delete('/saves', function (req, res) {
+  console.log('id in route:', req.body)
+  db.deleteSave(req.body)
+  .catch(err => {
+    console.log('Save Error')
+    res.status(500).send('DATABASE ERROR: ' + err.message)
+  })
+})
+
 module.exports = router

@@ -12,7 +12,8 @@ client
 
 module.exports = {
     addSave,
-    getSaves
+    getSaves,
+    deleteSave
 }
 
 async function addSave(save) {
@@ -23,6 +24,19 @@ async function addSave(save) {
         const col = db.collection("Saves")
         // console.log(save)
         await col.insertOne(save)
+    }
+    catch (err) {
+        console.log(err.stack);
+    }
+}
+
+async function deleteSave(data) {
+    console.log('got into db addsave')
+    console.log(data.title)
+    const db = client.db('Gol2')
+    try {
+        const col = db.collection("Saves")
+        await col.deleteOne({"title": data.title})
     }
     catch (err) {
         console.log(err.stack);
