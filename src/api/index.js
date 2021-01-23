@@ -19,3 +19,7 @@ export async function saveGame(save) {
       console.log(err)
     })
 }
+
+export async function delSave(id) {
+
+}
