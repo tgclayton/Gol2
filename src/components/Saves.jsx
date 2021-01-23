@@ -53,11 +53,11 @@ export default function Saves(props) {
         {saves[0] &&
           saves.map(save => {
             return (
-              <div key ={`save-${save.id}`} className = 'save-box'>
+              <div key ={`save-${save._id}`} className = 'save-box'>
                 <h5 style={{margin:'0 0 .5em',}}>{save.title}</h5>
                 <p className='save-p'>{save.desc}</p>
                 <p className='save-p'>Required Size: {save.minSize}x{save.minSize}</p>
-                <button onCLick = {() => null}>Load Save</button>
+                <button onClick = {() => props.loadSave(save.cells)}>Load Save</button>
               </div>
             )
           })

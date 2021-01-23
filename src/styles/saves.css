@@ -18,6 +18,7 @@ margin: 0 0 1em;
 }
 
 .save-box {
+  background-color: rgb(192, 192, 169);
 border: 2pt solid black;
 padding: .2em;
 margin-bottom: 1em;

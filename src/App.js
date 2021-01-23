@@ -262,6 +262,7 @@ function App() {
   }
 
   function changeLiveCells(cells) {
+    console.log('cells:', cells)
     const newCells = new Set([...cells])
     setLiveCells(newCells)
   }
@@ -344,6 +345,7 @@ function App() {
                     liveCells={liveCells}
                     boardSize={boardSize}
                     storedCells={storedCells}
+                    loadSave={changeLiveCells}
                   />
                 </Route>
                 <Route path={`/${leftPanelDisplay}/info`}>
