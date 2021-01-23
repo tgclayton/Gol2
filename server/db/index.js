@@ -16,9 +16,12 @@ module.exports = {
 }
 
 async function addSave(save) {
-    const db = client.db('To-do-data')
+    // console.log('got into db addsave')
+    // console.log('save', save)
+    const db = client.db('Gol2')
     try {
-        const col = db.collection("saves")
+        const col = db.collection("Saves")
+        // console.log(save)
         await col.insertOne(save)
     }
     catch (err) {

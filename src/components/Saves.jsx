@@ -5,10 +5,9 @@ import '../styles/saves.css'
 
 export default function Saves(props) {
   const [refresh, setRefresh] = useState(false)
-  const [saves, setSaves] = useState(() => fetchSaves())
+  const [saves, setSaves] = useState([])
 
   useEffect(() => {
-    // console.log('effect called')
     setSaves(fetchSaves())
   }, [refresh])
 
@@ -20,16 +19,13 @@ export default function Saves(props) {
       desc: desc
     }
     console.log(save)
-    // await saveGame(save)
-    // console.log('refreshed')
+    await saveGame(save)
     setRefresh(!refresh)
   }
 
   async function fetchSaves() {
-    // console.log('saves fetched')
     const saves = await getSaves()
     setSaves(saves)
-    // return saves
   }
 
   return (

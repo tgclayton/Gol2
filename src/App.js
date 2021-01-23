@@ -31,7 +31,7 @@ function App() {
   const [game, setGame] = useState(null) //holds the interval when game is running
   const [storedCells, setStoredCells] = useState(null) //stores current livecell positions
 
-  console.log("Game Launched")
+  // console.log("Game Launched")
 
   //Controls highlighting of selected nav button
   useEffect(() => {
@@ -262,7 +262,6 @@ function App() {
   }
 
   function changeLiveCells(cells) {
-    console.log('cells:', cells)
     const newCells = new Set([...cells])
     setLiveCells(newCells)
   }
