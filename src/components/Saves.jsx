@@ -49,7 +49,14 @@ export default function Saves(props) {
       </div>
 
       <div className='control-panel'>
-
+        {saves[0] &&
+          saves.map(save => {
+            return (
+              <div>Test</div>
+            )
+          })
+        }
+        
       </div>
 
     </>
