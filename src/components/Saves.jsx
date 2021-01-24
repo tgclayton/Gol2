@@ -8,7 +8,7 @@ export default function Saves(props) {
   const [saves, setSaves] = useState([])
 
   useEffect(() => {
-    setSaves(fetchSaves())
+    setSaves(fetchSaves() || [])
   }, [refresh])
 
   async function save(cells, title, desc) {
@@ -46,10 +46,10 @@ export default function Saves(props) {
         {/* <button>Save Initial Generation</button> */}
         {/* <button onClick={() => { fetchSaves() }}>Get Saves</button> */}
         {/* <br/><br/> */}
+        <p>Title:</p>
         <input id='save-title' type='text' ></input>
-        <p>Title</p>
+        <p>Description:</p>
         <input id='save-desc' type='text' ></input>
-        <p>Description</p>
         <button onClick={() => { save(props.liveCells, document.getElementById('save-title').value, document.getElementById('save-desc').value) }}
           style={{ marginTop: '1em' }}>Save Current Generation</button>
       </div>
