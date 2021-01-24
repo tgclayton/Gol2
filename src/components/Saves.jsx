@@ -67,7 +67,7 @@ export default function Saves(props) {
                   <h5 style={{ margin: '0 0 .5em', }}>{save.title}</h5>
                   <p className='save-p'>{save.desc}</p>
                   <p className='save-p'>Required Size: {save.minSize}x{save.minSize}</p>
-                  <button onClick={() => props.loadSave(save.cells)}>Load</button>
+                  <button onClick={() => props.loadSave(save.cells, save.minSize)}>Load</button>
                   <button onClick={() => deleteSave(save.title)}>Delete</button>
                 </div>
               )

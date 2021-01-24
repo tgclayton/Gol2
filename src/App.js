@@ -10,7 +10,7 @@ import Saves from './components/Saves'
 import React, { useState, useEffect } from "react"
 import { Route, BrowserRouter as Router, Switch, Link, Redirect } from 'react-router-dom'
 import { createField, newMakeRandomMap, makeNextGen, coordsToIdx } from './functions/game.js'
-import { canvasDraw, } from './functions/canvas.js'
+import { canvasDraw, gridDraw, clearCanvas} from './functions/canvas.js'
 import { } from './functions/app.js'
 
 let workLiveCells = new Set([])
@@ -30,12 +30,12 @@ function App() {
   const [speed, setActiveSpeed] = useState(30) //speed at which new generations are created when game is running
   const [game, setGame] = useState(null) //holds the interval when game is running
   const [storedCells, setStoredCells] = useState(null) //stores current livecell positions
+  const [grid, setGrid]= useState(false)
 
   // console.log("Game Launched")
 
   //Controls highlighting of selected nav button
   useEffect(() => {
-    // console.log(`left: ${leftPanelDisplay} right: ${rightPanelDisplay}`)
     let buttons = Array.from(document.getElementsByClassName('nav-button'))
     buttons.forEach(element => element.classList.remove('selected-nav'))
     document.getElementById(`nav-button-${leftPanelDisplay}`).classList.add('selected-nav')
@@ -148,6 +148,7 @@ function App() {
     }
   }
 
+//changes the height and width of the gameboard to the number passed
   function changeSize(size) {
     const tileSize = canvasSize / size
     setField(createField(size, tileSize))
@@ -186,6 +187,7 @@ function App() {
     // }, 25);
   }
 
+  //changes the canvas height and width values to number in the input field
   function changeCanvasSize() {
     const size = Number(document.getElementById('canvasSize-change').value)
     setCanvasSize(size)
@@ -261,9 +263,11 @@ function App() {
     }
   }
 
-  function changeLiveCells(cells) {
+  function changeLiveCells(cells, boardSize) {
+    if (boardSize) changeSize(boardSize)
     const newCells = new Set([...cells])
     setLiveCells(newCells)
+    setGrid(!grid)
   }
   // 
   return (
@@ -310,6 +314,7 @@ function App() {
                     changeSpeed={changeSpeed}
                     runGame={runGame}
                     pauseGame={pauseGame}
+                    grid={grid}
                   />
                 </Route>
               </Switch>
