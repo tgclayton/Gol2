@@ -10,7 +10,7 @@ import Saves from './components/Saves'
 import React, { useState, useEffect } from "react"
 import { Route, BrowserRouter as Router, Switch, Link, Redirect } from 'react-router-dom'
 import { createField, newMakeRandomMap, makeNextGen, coordsToIdx } from './functions/game.js'
-import { canvasDraw, gridDraw, clearCanvas} from './functions/canvas.js'
+import { canvasDraw, gridDraw, clearCanvas } from './functions/canvas.js'
 import { } from './functions/app.js'
 
 let workLiveCells = new Set([])
@@ -30,7 +30,7 @@ function App() {
   const [speed, setActiveSpeed] = useState(30) //speed at which new generations are created when game is running
   const [game, setGame] = useState(null) //holds the interval when game is running
   const [storedCells, setStoredCells] = useState(null) //stores current livecell positions
-  const [grid, setGrid]= useState(false)
+  const [grid, setGrid] = useState(false)
 
   // console.log("Game Launched")
 
@@ -76,10 +76,10 @@ function App() {
     if (e.key === "Shift") {
       return
     }
-    const focus = 
-    (document.activeElement === document.getElementById('size-change')) ||
-    (document.activeElement === document.getElementById('save-title')) ||
-    (document.activeElement === document.getElementById('save-desc'))
+    const focus =
+      (document.activeElement === document.getElementById('size-change')) ||
+      (document.activeElement === document.getElementById('save-title')) ||
+      (document.activeElement === document.getElementById('save-desc'))
     if (!focus) {
       // console.log('keydown handled')
       // e.Handled = true;
@@ -124,6 +124,9 @@ function App() {
         case 'e':
           toggleWrap()
           break
+        case 'g':
+          setGrid(!grid)
+          break
         default: console.log(e.key)
       }
     }
@@ -148,7 +151,7 @@ function App() {
     }
   }
 
-//changes the height and width of the gameboard to the number passed
+  //changes the height and width of the gameboard to the number passed
   function changeSize(size) {
     const tileSize = canvasSize / size
     setField(createField(size, tileSize))
@@ -267,7 +270,7 @@ function App() {
     if (boardSize) changeSize(boardSize)
     const newCells = new Set([...cells])
     setLiveCells(newCells)
-    setGrid(!grid)
+    // setGrid(!grid)
   }
   // 
   return (
@@ -342,7 +345,7 @@ function App() {
                 <Link to={`/${leftPanelDisplay}/info`} replace id='nav-button-info' className='nav-button' onClick={() => setRightPanelDisplay('info')}>Info</Link>
               </div>
             </div>
-            <div className={'col-body column'} style={{justifyContent:'space-around'}}>
+            <div className={'col-body column'} style={{ justifyContent: 'space-around' }}>
               <Switch>
                 <Route path={`/${leftPanelDisplay}/saves`}>
                   <Saves

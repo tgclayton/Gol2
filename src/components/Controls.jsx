@@ -5,17 +5,15 @@ export default function Controls(props) {
   const [showGrid, setShowGrid] = useState(true)
   
   useEffect(()=> {
+    toggleGrid()
+  },[props.grid])
+  
+  useEffect(() => {
     if(showGrid){
       clearCanvas('grid-canvas')
       gridDraw(props.tileSize, props.boardSize)
     }
-  },[props.grid])
-  
-  // useEffect(() => {
-  //   // gridDraw(props.tileSize, props.boardSize)
-  //   toggleGrid()
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [])
+  }, [props.boardSize])
 
   useEffect(() => {
     const activeSpeed = props.speed === 600 ? 1 : props.speed === 300 ? 2 : props.speed === 120 ? 3 : props.speed === 30 ? 4 : 5
