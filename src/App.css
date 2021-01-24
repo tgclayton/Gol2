@@ -92,7 +92,6 @@ min-width: 250px;
 .control-panel{
   width: 80%;
   min-width: 220px;
-  max-height: 80%;
   border: 3pt solid black;
   padding: 1em ;
   background-color:rgb(160, 158, 158);

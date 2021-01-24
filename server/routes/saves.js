@@ -5,10 +5,8 @@ const db = require('../db')
 const router = express.Router()
 
 router.get('/saves', function (req, res) {
-  // console.log('got into saves get route')
   db.getSaves()
     .then(saves => {
-      // console.log("saves in route:", saves)
       res.send(saves)
     })
     .catch(err => {
@@ -18,8 +16,6 @@ router.get('/saves', function (req, res) {
 });
 
 router.post('/saves', function (req, res) {
-  // console.log('got into save post route')
-  // console.log('body:', req.body)
   db.addSave(req.body)
   .then(() => {
     res.send('Saved')
@@ -31,7 +27,6 @@ router.post('/saves', function (req, res) {
 })
 
 router.delete('/saves', function (req, res) {
-  console.log('id in route:', req.body)
   db.deleteSave(req.body)
   .catch(err => {
     console.log('Save Error')

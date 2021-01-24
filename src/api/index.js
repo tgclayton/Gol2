@@ -24,7 +24,6 @@ export async function saveGame(save) {
 }
 
 export async function delSave(title) {
-  console.log('title in api:', title)
   return request.del('/saves')
     .send({ title })
     .then(res => {

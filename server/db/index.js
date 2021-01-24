@@ -17,12 +17,9 @@ module.exports = {
 }
 
 async function addSave(save) {
-    // console.log('got into db addsave')
-    // console.log('save', save)
     const db = client.db('Gol2')
     try {
         const col = db.collection("Saves")
-        // console.log(save)
         await col.insertOne(save)
     }
     catch (err) {
@@ -31,8 +28,6 @@ async function addSave(save) {
 }
 
 async function deleteSave(data) {
-    console.log('got into db addsave')
-    console.log(data.title)
     const db = client.db('Gol2')
     try {
         const col = db.collection("Saves")
