@@ -28,6 +28,9 @@ router.post('/saves', function (req, res) {
 
 router.delete('/saves', function (req, res) {
   db.deleteSave(req.body)
+  .then(() => {
+    res.send('success')
+  })
   .catch(err => {
     console.log('Save Error')
     res.status(500).send('DATABASE ERROR: ' + err.message)

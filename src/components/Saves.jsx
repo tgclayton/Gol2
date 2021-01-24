@@ -9,7 +9,7 @@ export default function Saves(props) {
 
   useEffect(() => {
     setSaves(fetchSaves() || [])
-  }, [refresh])
+  }, [])
 
   async function save(cells, title, desc) {
     let valid = true
@@ -23,8 +23,8 @@ export default function Saves(props) {
         title: title,
         desc: desc
       }
-      await saveGame(save)
-      setRefresh(!refresh)
+      const success = await saveGame(save)
+      fetchSaves()
     }
   }
   
@@ -34,8 +34,9 @@ export default function Saves(props) {
   }
   
   async function deleteSave(id) {
-    await delSave(id)
-    setRefresh(!refresh)
+   const success = await delSave(id)
+   console.log(success)
+  fetchSaves()
   }
 
   return (

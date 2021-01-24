@@ -6,8 +6,8 @@ export async function getSaves() {
       return res.body
     })
     .catch(err => {
-      console.log('error occurred')
-      console.log(err)
+      console.log('error occurred in get saves')
+      console.log('err:',err)
     })
 }
 
@@ -19,7 +19,7 @@ export async function saveGame(save) {
     })
     .catch(err => {
       console.log('error occurred:')
-      console.log(err)
+      console.log('err:',err)
     })
 }
 
@@ -31,6 +31,6 @@ export async function delSave(title) {
     })
     .catch(err => {
       console.log('error occurred:')
-      console.log(err)
+      console.log('err:',err)
     })
 }

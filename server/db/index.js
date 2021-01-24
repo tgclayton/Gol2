@@ -32,6 +32,7 @@ async function deleteSave(data) {
     try {
         const col = db.collection("Saves")
         await col.deleteOne({"title": data.title})
+        return 'success'
     }
     catch (err) {
         console.log(err.stack);
