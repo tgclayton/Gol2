@@ -76,10 +76,13 @@ function App() {
     if (e.key === "Shift") {
       return
     }
-    const focus =
-      (document.activeElement === document.getElementById('size-change')) ||
-      (document.activeElement === document.getElementById('save-title')) ||
-      (document.activeElement === document.getElementById('save-desc'))
+    const editables = [...document.getElementsByClassName('editable')]
+    //  console.log(editables)
+    const focus = editables.some(el => document.activeElement === el)
+    // (document.activeElement === document.getElementById('size-change')) ||
+    // (document.activeElement === document.getElementById('save-title')) ||
+    // (document.activeElement === document.getElementById('save-desc'))
+    console.log(focus)
     if (!focus) {
       // console.log('keydown handled')
       // e.Handled = true;

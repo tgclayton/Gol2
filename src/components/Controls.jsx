@@ -53,7 +53,7 @@ export default function Controls(props) {
         <button onClick={() => props.runGame()} >Run Game</button>
         <button onClick ={() => props.pauseGame()}>Pause Game</button>
         <br /><br />
-        <input id='size-change' type='number' defaultValue={props.boardSize} max={250}></input>
+        <input className ='editable' id='size-change' type='number' defaultValue={props.boardSize} max={250}></input>
         <br></br>
         <button onClick={() => changeboardSize(Number(document.getElementById('size-change').value))} >Change Board Height/Width</button>
         <br /><br />

@@ -55,9 +55,9 @@ export default function Saves(props) {
         {/* <button onClick={() => { fetchSaves() }}>Get Saves</button> */}
         {/* <br/><br/> */}
         <p>Title:</p>
-        <input id='save-title' type='text' ></input>
+        <input id='save-title' className ='editable' type='text' ></input>
         <p>Description:</p>
-        <input id='save-desc' type='text' ></input>
+        <input id='save-desc' className ='editable' type='text' ></input>
         <button onClick={() => { save(props.liveCells, document.getElementById('save-title').value, document.getElementById('save-desc').value) }}
           style={{ marginTop: '1em' }}>Save Current Generation</button>
       </div>
@@ -71,8 +71,8 @@ export default function Saves(props) {
             saves.map(save => {
               return (
                 <div key={`save-${save._id}`} className='save-box'>
-                  <h5 className='writeable' style={{ margin: '0 0 .5em', }}>{save.title}</h5>
-                  <p className='save-p writeable'>{save.desc}</p>
+                  <h5 className='editable'contenteditable="true" style={{ margin: '0 0 .5em', }}>{save.title}</h5>
+                  <p className='save-p editable' contenteditable="true">{save.desc}</p>
                   <p className='save-p'>Required Size: {save.minSize}x{save.minSize}</p>
                   <button onClick={() => props.loadSave(save.cells, save.minSize)}>Load</button>
                   <button onClick={() => deleteSave(save.title)}>Delete</button>
