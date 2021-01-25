@@ -11,7 +11,14 @@ export default function Saves(props) {
     setSaves(fetchSaves() || [])
   }, [])
 
+  function clearSaveFields() {
+    console.log('got into clearsaves')
+    document.getElementById('save-title').value = ''
+    document.getElementById('save-desc').value = ''
+  }
+
   async function save(cells, title, desc) {
+    clearSaveFields()
     let valid = true
     saves.forEach(save => {
       if (save.title === title) valid = false
@@ -64,8 +71,8 @@ export default function Saves(props) {
             saves.map(save => {
               return (
                 <div key={`save-${save._id}`} className='save-box'>
-                  <h5 style={{ margin: '0 0 .5em', }}>{save.title}</h5>
-                  <p className='save-p'>{save.desc}</p>
+                  <h5 className='writeable' style={{ margin: '0 0 .5em', }}>{save.title}</h5>
+                  <p className='save-p writeable'>{save.desc}</p>
                   <p className='save-p'>Required Size: {save.minSize}x{save.minSize}</p>
                   <button onClick={() => props.loadSave(save.cells, save.minSize)}>Load</button>
                   <button onClick={() => deleteSave(save.title)}>Delete</button>

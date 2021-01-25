@@ -36,9 +36,10 @@ export default function Info(props) {
         <p><span>W/Up Arrow:</span> Create a new random game</p>
         <p><span>S/Down Arrow:</span> Clear the game board</p>
         <p><span>D/Left Arrow:</span> Run a single generation</p>
-        <p><span>Space:</span> Start or pause the game</p>
+        <p><span>Space:</span> Start or pause the game</p>g
         <p><span>Numbers 1-5:</span> Set game speed</p>
         <p><span>E:</span> Toggle edge wrapping</p>
+        <p><span>G:</span> Toggle grid</p>
         </div>
       </div>
     </>
