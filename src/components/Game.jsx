@@ -17,7 +17,6 @@ export default function Game(props) {
       window.removeEventListener('keydown', (e) => handleKeyDown(e))
       window.removeEventListener('keyup', (e) => handleKeyUp(e))
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   })
 
   function handleKeyDown(e) {

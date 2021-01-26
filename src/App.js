@@ -10,7 +10,8 @@ import Saves from './components/Saves'
 import React, { useState, useEffect } from "react"
 import { Route, BrowserRouter as Router, Switch, Link, Redirect } from 'react-router-dom'
 import { createField, newMakeRandomMap, makeNextGen, coordsToIdx } from './functions/game.js'
-import { canvasDraw, gridDraw, clearCanvas } from './functions/canvas.js'
+import { canvasDraw, } from './functions/canvas.js'
+// gridDraw, clearCanvas 
 import { } from './functions/app.js'
 
 let workLiveCells = new Set([])
@@ -29,6 +30,7 @@ function App() {
   const [generation, setGeneration] = useState(0) //current generation displayed
   const [speed, setActiveSpeed] = useState(30) //speed at which new generations are created when game is running
   const [game, setGame] = useState(null) //holds the interval when game is running
+  // eslint-disable-next-line
   const [storedCells, setStoredCells] = useState(null) //stores current livecell positions
   const [grid, setGrid] = useState(false)
 

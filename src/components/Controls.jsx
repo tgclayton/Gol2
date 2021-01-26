@@ -6,6 +6,7 @@ export default function Controls(props) {
   
   useEffect(()=> {
     toggleGrid()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   },[props.grid])
   
   useEffect(() => {
@@ -13,6 +14,7 @@ export default function Controls(props) {
       clearCanvas('grid-canvas')
       gridDraw(props.tileSize, props.boardSize)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.boardSize])
 
   useEffect(() => {

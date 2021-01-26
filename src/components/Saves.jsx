@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react'
 import '../styles/saves.css'
 
 export default function Saves(props) {
-  const [refresh, setRefresh] = useState(false)
+  // const [refresh, setRefresh] = useState(false)
   const [saves, setSaves] = useState([])
 
   useEffect(() => {
@@ -30,7 +30,7 @@ export default function Saves(props) {
         title: title,
         desc: desc
       }
-      const success = await saveGame(save)
+      await saveGame(save)
       fetchSaves()
     }
   }
